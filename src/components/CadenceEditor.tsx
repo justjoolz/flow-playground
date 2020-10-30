@@ -6,11 +6,8 @@ import {createCadenceLanguageClient} from "../util/language-client"
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api"
 import {EntityType} from "providers/Project";
 import Arguments from "components/Arguments";
-import { Argument } from "components/Arguments/types";
-import {
-  MonacoLanguageClient,
-  ExecuteCommandRequest,
-} from "monaco-languageclient"
+import {Argument} from "components/Arguments/types";
+import {ExecuteCommandRequest, MonacoLanguageClient,} from "monaco-languageclient"
 
 const {MonacoServices} = require("monaco-languageclient/lib/monaco-services");
 
@@ -169,7 +166,11 @@ class CadenceEditor extends React.Component<CadenceEditorProps, CadenceEditorSta
     this.languageClient.onReady().then(() => {
       this.languageClient.onNotification(CadenceCheckCompleted.methodName, async (result: CadenceCheckCompleted.Params) => {
         if (result.valid) {
-          const params = await this.getParameters()
+          const getParams = this.props.type === EntityType.Account
+            ? this.getContractInitParameters
+            : this.getParameters;
+
+          const params = await getParams()
           this.setExecutionArguments(params)
         }
         this.setValidState(result.valid)
@@ -183,6 +184,20 @@ class CadenceEditor extends React.Component<CadenceEditorProps, CadenceEditorSta
     try {
       const args = await this.languageClient.sendRequest(ExecuteCommandRequest.type, {
         command: "cadence.server.getEntryPointParameters",
+        arguments: [this.editor.getModel().uri.toString()]
+      })
+      return args || []
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  private async getContractInitParameters() {
+    await this.languageClient.onReady()
+
+    try{
+      const args = await this.languageClient.sendRequest(ExecuteCommandRequest.type, {
+        command: "cadence.server.getContractInitializerParameters",
         arguments: [this.editor.getModel().uri.toString()]
       })
       return args || []
