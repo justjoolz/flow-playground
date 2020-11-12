@@ -161,16 +161,18 @@ class CadenceEditor extends React.Component<CadenceEditorProps, CadenceEditorSta
 
     await CadenceLanguageServer.create(this.callbacks);
 
-    this.languageClient = createCadenceLanguageClient(this.callbacks);
-    this.languageClient.start()
-    this.languageClient.onReady().then(() => {
-      this.languageClient.onNotification(CadenceCheckCompleted.methodName, async (result: CadenceCheckCompleted.Params) => {
+    const languageClient = createCadenceLanguageClient(this.callbacks);
+    this.languageClient = languageClient;
+
+    languageClient.start()
+    languageClient.onReady().then(() => {
+      languageClient.onNotification(CadenceCheckCompleted.methodName, async (result: CadenceCheckCompleted.Params) => {
         if (result.valid) {
           const getParams = this.props.type === EntityType.Account
             ? this.getContractInitParameters
             : this.getParameters;
 
-          const params = await getParams()
+          const params = await getParams.bind(this)()
           this.setExecutionArguments(params)
         }
         this.setValidState(result.valid)
