@@ -83,6 +83,7 @@ const MenuList: React.FC<MenuListProps> = ({
             <SidebarItem
               key={value.id}
               active={active === i}
+              title={value.title}
               onClick={(e: React.SyntheticEvent<Element, Event>) =>
                 onSelect(e, i)
               }
