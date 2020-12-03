@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 import { useApolloClient, useQuery } from "@apollo/react-hooks";
-import { navigate } from "@reach/router";
+import {navigate, useParams} from "@reach/router";
 import ProjectMutator from "./projectMutator";
 import useGetProject from "./projectHooks";
 
@@ -93,10 +93,17 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
   const [transactionAccounts, setTransactionAccounts] = useState<number[]>([0]);
   const [isSavingCode, setIsSaving] = useState(false);
 
-  const [active, setActive] = useState<{ type: EntityType; index: number }>({
+  const [active, updateActive] = useState<{ type: EntityType; index: number }>({
     type: EntityType.Account,
-    index: 0
+    index: 0,
   });
+
+  const setActive = (newActive: { type: EntityType; index: number }) => {
+    const params = useParams();
+    console.log({ params });
+    console.log(newActive.type, newActive.index);
+    updateActive(newActive);
+  };
 
   const projectID = project ? project.id : null;
 
