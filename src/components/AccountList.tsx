@@ -1,4 +1,6 @@
 import React from "react";
+import styled from "@emotion/styled";
+import { navigate } from "@reach/router";
 import { Account } from "api/apollo/generated/graphql";
 import { EntityType } from "providers/Project";
 import { SidebarSection as Root } from "layout/SidebarSection";
@@ -16,7 +18,6 @@ function getDeployedContracts(account: Account): string {
   return contracts.join(", ");
 }
 
-import styled from "@emotion/styled";
 import {ExportButton} from "components/ExportButton";
 
 export const AccountCard = styled.div`
@@ -34,6 +35,8 @@ const AccountList: React.FC = () => {
     setActive
   } = useProject();
   const active = rawActive.type === EntityType.Account ? rawActive.index : null;
+  const { id } = project
+
   return (
     <Root>
       <Header>Accounts</Header>
@@ -46,12 +49,18 @@ const AccountList: React.FC = () => {
             ? `${contractName} is deployed to this account`
             : `This account don't have any contracts`
           const typeName = account.__typename
+
+          const domain = id === 'LOCAL-project' ? "local" : id
+
           return (
             <Item
               key={i}
               title={title}
               active={isActive}
-              onClick={() => setActive(EntityType.Account, i)}
+              onClick={async () => {
+                await navigate(`/${domain}?account=${i}`)
+                setActive(EntityType.Account, i)
+              }}
             >
               <AccountCard>
                 <Avatar seed={project.seed} index={i} />

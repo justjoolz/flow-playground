@@ -1,10 +1,10 @@
 import React from "react";
+import { navigate } from "@reach/router";
 import { EntityType } from "providers/Project";
+import { useProject } from "providers/Project/projectHooks";
 import AccountList from "components/AccountList";
 import MenuList from "components/MenuList";
 import { Sidebar as SidebarRoot } from "layout/Sidebar";
-
-import { useProject } from "providers/Project/projectHooks";
 
 const Sidebar: React.FC = () => {
   const {
@@ -21,22 +21,32 @@ const Sidebar: React.FC = () => {
 
   if (isLoading) return <p>Loading...</p>;
 
+  const { id } = project
+  const domain = id === 'LOCAL-project' ? "local" : id
+
+  const setNewUrl = async (type:string, index: number) => {
+    return navigate(`/${domain}?${type}=${index}`)
+  }
+
   return (
     <SidebarRoot>
-      <AccountList />
+      <AccountList/>
       <MenuList
         title="Transaction Templates"
         values={project.transactionTemplates}
         active={
           active.type == EntityType.TransactionTemplate ? active.index : null
         }
-        onSelect={(_, index) =>
+        onSelect={async (_, index) => {
+          await setNewUrl("tx", index)
           setActive(EntityType.TransactionTemplate, index)
+          }
         }
         onUpdate={(templateId: string, script: string, title: string) => {
           updateTransactionTemplate(templateId, script, title);
         }}
-        onDelete={(templateId: string) => {
+        onDelete={async (templateId: string) => {
+          await setNewUrl("account", 0)
           setActive(EntityType.Account, 0);
           deleteTransactionTemplate(templateId);
         }}
@@ -51,11 +61,15 @@ const Sidebar: React.FC = () => {
         title="Script Templates"
         values={project.scriptTemplates}
         active={active.type == EntityType.ScriptTemplate ? active.index : null}
-        onSelect={(_, index) => setActive(EntityType.ScriptTemplate, index)}
+        onSelect={async (_, index) => {
+          await setNewUrl("script", index)
+          setActive(EntityType.ScriptTemplate, index)
+        }}
         onUpdate={(templateId: string, script: string, title: string) => {
           updateScriptTemplate(templateId, script, title);
         }}
-        onDelete={(templateId: string) => {
+        onDelete={async (templateId: string) => {
+          await setNewUrl("account", 0)
           setActive(EntityType.Account, 0);
           deleteScriptTemplate(templateId);
         }}
