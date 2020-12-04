@@ -83,7 +83,7 @@ const App: React.FC = () => {
                <Playground path="/:projectId/*" />
                <Redirect
                  from="/"
-                 to="/local?item=account&id=0"
+                 to="/local?account=0"
                />
              </Router>`
              {version}
