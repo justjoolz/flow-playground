@@ -80,6 +80,7 @@ const App: React.FC = () => {
            <AppMobileWrapper>
              <Router>
                <FourOhFour path="/404" />
+               {/* TODO: Try to solve it with complex route*/}
                <Playground path="/:projectId/*" />
                <Redirect
                  from="/"
