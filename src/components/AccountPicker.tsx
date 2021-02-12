@@ -41,7 +41,8 @@ const AccountPicker: React.FC<AccountPickerProps> = ({
   return (
     <Flex
       sx={{
-        flexDirection: "column"
+        flexDirection: "column",
+        alignItems: "flex-start"
       }}
     >
       <Flex
@@ -69,7 +70,8 @@ const AccountPicker: React.FC<AccountPickerProps> = ({
           alignItems: "center",
           border: `1px solid ${theme.colors.borderDark}`,
           backgroundColor: theme.colors.background,
-          borderRadius: "8px"
+          borderRadius: "8px",
+          width: "100%",
         }}
       >
         <AccountSigners 

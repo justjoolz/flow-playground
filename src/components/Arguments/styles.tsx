@@ -7,8 +7,7 @@ interface HoverPanelProps {
 }
 
 export const HoverPanel = styled.div<HoverPanelProps>`
-  min-width: 300px;
-  max-width: 500px;
+  width: 320px;
   padding: 20px;
   border-radius: 4px;
   background-color: #fff;
@@ -192,7 +191,9 @@ export const ErrorIndex = styled.div`
 
 export const ErrorMessage = styled.p`
   line-height: 1.2;
-  word-break: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
   span {
     background-color: rgba(0,0, 0, 0.05);
     padding: 2px 6px;
