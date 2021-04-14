@@ -28,7 +28,7 @@
     "handlebars-loader": "^1.7.1",
     "isomorphic-fetch": "^2.2.1",
     "jszip": "^3.5.0",
-    "mixpanel-browser": "^2.39.0",
+    "mixpanel-browser": "^2.41.0",
     "monaco-editor": "^0.20.0",
     "monaco-languageclient": "^0.13.0",
     "react": "^16.13.1",
