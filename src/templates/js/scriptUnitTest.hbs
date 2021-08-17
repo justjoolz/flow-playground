@@ -3,19 +3,14 @@ test("test script template {{name}}", async () => {
 
     {{>getAccounts accounts=accounts}}
 
-    {{>addressMap imports=imports}}
-
-    let code = await getScriptCode({
-        name,
-        {{#if imports}}addressMap{{/if}}
-    });
+    let code = await getScriptCode({ name });
 
     {{>codeReplacement accounts=accountCalls}}
 
     {{>defineArguments arguments=arguments}}
 
     const result = await executeScript({
-        code,
+        name,
         {{#if arguments}}args{{/if}}
     });
 
