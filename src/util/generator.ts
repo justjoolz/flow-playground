@@ -303,13 +303,15 @@ export const createZip = async (
 
   const readMeFile = await readmeTemplate({
     projectLink: `https://play.onflow.org/${id}`,
+    projectTitle: `${project.title}`,
+    projectReadme: `${[project.readme]}`
   });
   const packageConfig = await packageTemplate({ name: projectName });
   const babelConfig = await babelConfigTemplate();
   const jestConfig = await jestConfigTemplate();
   const testFile = await generateTests(folderName, project);
 
-  zip.file('test/README.md', readMeFile);
+  zip.file('test/README.md', readMeFile); // add README to export here j00lz
   zip.file('test/package.json', packageConfig);
   zip.file('test/babel.config.json', babelConfig);
   zip.file('test/jest.config.js', jestConfig);
