@@ -50,6 +50,9 @@ export default class ProjectMutator {
     const parentId = localProject.parentId;
     const accounts = localProject.accounts.map((acc: Account) => acc.draftCode);
     const seed = localProject.seed;
+    const title = localProject.title;
+    const description = localProject.description;
+    const readme = localProject.readme;
     const transactionTemplates = localProject.transactionTemplates.map(
       (tpl: any) => ({ script: tpl.script, title: tpl.title }),
     );
@@ -64,7 +67,9 @@ export default class ProjectMutator {
         parentId: parentId,
         accounts: accounts,
         seed: seed,
-        title: '',
+        title: title,
+        description: description,
+        readme: readme,
         transactionTemplates: transactionTemplates,
         scriptTemplates: scriptTemplates,
       },

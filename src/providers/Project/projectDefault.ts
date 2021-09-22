@@ -202,6 +202,8 @@ export function createLocalProject(
     persist: false,
     mutable: false,
     title: "",
+    description: "",
+    readme: "",
     seed: seed,
     parentId: parentId,
     accounts: accountEntities,
