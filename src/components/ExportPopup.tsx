@@ -4,6 +4,8 @@ import { FaSyncAlt } from 'react-icons/fa';
 import { useProject } from 'providers/Project/projectHooks';
 import { default as FlowButton } from 'components/Button';
 
+// import { Project } from 'api/apollo/generated/graphql'; // not sure if required, can use project context instead?
+
 import {
   FullScreenContainer,
   PopupContainer,
@@ -35,6 +37,16 @@ const ExportPopup: React.FC<{
   triggerClose?: (e: React.SyntheticEvent) => any;
 }> = ({ visible, triggerClose }) => {
   const { project } = useProject();
+  
+  console.log(project);
+  
+  const [projectDescription, setProjectDescription] = useState(project.description)
+  const [projectReadme, setProjectReadme] = useState(project.readme)
+  
+  // const setProjectDescription = (desc) => project.description = desc  
+  // const setProjectReadme = (readme) => project.readme = readme  
+
+
   const [processing, setProcessing] = useState(false);
   const [projectName, setProjectName] = useState(generateProjectName());
   const [folderName, setFolderName] = useState('cadence');
@@ -45,7 +57,8 @@ const ExportPopup: React.FC<{
   }
 
   const firstInput = useRef<HTMLInputElement>(null!);
-
+  
+  
   useEffect(() => {
     firstInput.current.focus();
   }, [firstInput.current]);
@@ -98,9 +111,9 @@ const ExportPopup: React.FC<{
       animate={visible ? 'visible' : 'hidden'}
       variants={containerFrames}
     >
-      <PopupContainer width="350px" variants={popupFrames}>
+      <PopupContainer width="550px" variants={popupFrames}>
         <PopupHeader mb="20px" color="#575E89" lineColor="#B4BEFC">
-          Export Project
+          Project Details/Settings
         </PopupHeader>
         <InputBlock mb={'12px'}>
           <Label>Project Name</Label>
@@ -111,6 +124,29 @@ const ExportPopup: React.FC<{
           />
           <InputIcon icon={<FaSyncAlt/>} onClick={regenerateProjectName}/>
         </InputBlock>
+
+        <InputBlock mb={'12px'}>
+          <Label>Project Description</Label>
+           <textarea
+          value={projectDescription}
+          rows={3}
+          cols={5}
+          onChange={event => setProjectDescription(event.target.value)}
+          />
+        </InputBlock>
+
+        <InputBlock mb={'30px'}>
+          <Label>Project README.md</Label>
+          <textarea  
+            rows={5}
+            cols={5}
+            value={projectReadme}
+            onChange={event => setProjectReadme(event.target.value)}
+
+          ></textarea>
+        </InputBlock>
+
+
         <InputBlock mb={'30px'}>
           <Label>Cadence Folder</Label>
           <Input
