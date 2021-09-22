@@ -17,7 +17,7 @@ export const CREATE_PROJECT = gql`
         accounts: $accounts
         seed: $seed
         title: $title
-        descriptoin: $description
+        description: $description
         readme: $readme
         transactionTemplates: $transactionTemplates
         scriptTemplates: $scriptTemplates
