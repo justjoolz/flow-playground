@@ -9,6 +9,8 @@ export const GET_PROJECT = gql`
       parentId
       seed
       title
+      description
+      readme
       accounts {
         id
         address
