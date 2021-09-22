@@ -6,6 +6,8 @@ export const CREATE_PROJECT = gql`
     $accounts: [String!]!
     $seed: Int!
     $title: String!
+    $description: String!
+    $readme: String!
     $transactionTemplates: [NewProjectTransactionTemplate!]!
     $scriptTemplates: [NewProjectScriptTemplate!]!
   ) {
@@ -15,6 +17,8 @@ export const CREATE_PROJECT = gql`
         accounts: $accounts
         seed: $seed
         title: $title
+        descriptoin: $description
+        readme: $readme
         transactionTemplates: $transactionTemplates
         scriptTemplates: $scriptTemplates
       }

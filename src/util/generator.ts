@@ -303,6 +303,8 @@ export const createZip = async (
 
   const readMeFile = await readmeTemplate({
     projectLink: `https://play.onflow.org/${id}`,
+      projectTitle: `${project.title}`,
+      projectReadme: `${[project.readme]}`
   });
   const packageConfig = await packageTemplate({ name: projectName });
   const babelConfig = await babelConfigTemplate();
