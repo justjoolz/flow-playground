@@ -23,6 +23,8 @@ export type Project = {
   publicId: Scalars['UUID'];
   parentId?: Maybe<Scalars['UUID']>;
   title: Scalars['String'];
+  description: Scalars['String'];
+  readme: Scalars['String'];
   seed: Scalars['Int'];
   version: Scalars['Version'];
   persist?: Maybe<Scalars['Boolean']>;
