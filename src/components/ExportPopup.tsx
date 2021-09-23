@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { uniqueNamesGenerator, adjectives, colors, } from 'unique-names-generator';
-import { FaSyncAlt } from 'react-icons/fa';
+import { FaCloudUploadAlt, FaSyncAlt, FaCodeBranch } from "react-icons/fa";
 import { useProject } from 'providers/Project/projectHooks';
 import { default as FlowButton } from 'components/Button';
 
@@ -13,6 +13,8 @@ import {
   WhiteOverlay,
   SpaceBetween,
 } from 'components/Common';
+
+import { ShareSaveButton } from "../containers/editor/components";
 
 import { createZip } from '../util/generator';
 
@@ -36,19 +38,13 @@ const ExportPopup: React.FC<{
   visible: boolean;
   triggerClose?: (e: React.SyntheticEvent) => any;
 }> = ({ visible, triggerClose }) => {
-  const { project } = useProject();
+  const { project, mutator } = useProject();
   
-  console.log(project);
-  
+  const [projectName, setProjectName] = useState(project.title ? project.title : generateProjectName());
   const [projectDescription, setProjectDescription] = useState(project.description)
   const [projectReadme, setProjectReadme] = useState(project.readme)
   
-  // const setProjectDescription = (desc) => project.description = desc  
-  // const setProjectReadme = (readme) => project.readme = readme  
-
-
   const [processing, setProcessing] = useState(false);
-  const [projectName, setProjectName] = useState(generateProjectName());
   const [folderName, setFolderName] = useState('cadence');
 
   const regenerateProjectName = () => {
@@ -161,6 +157,7 @@ const ExportPopup: React.FC<{
             <FlowButton className="grey modal" onClick={triggerClose}>
               Close
             </FlowButton>
+
             <FlowButton
               className="violet modal"
               onClick={async () => {
@@ -172,6 +169,22 @@ const ExportPopup: React.FC<{
             >
               Export
             </FlowButton>
+
+            <FlowButton
+              className="green modal"
+              onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
+            > Save! 
+            </FlowButton>
+
+            {project && (
+                <ShareSaveButton
+                  url={window.location.href}
+                  saveText={project.parentId ? "Fork" : "Save"}
+                  showShare={project.persist}
+                  onSave={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
+                  icon={project.parentId ? FaCodeBranch : FaCloudUploadAlt}
+                />
+              )}
           </SpaceBetween>
         )}
       </PopupContainer>

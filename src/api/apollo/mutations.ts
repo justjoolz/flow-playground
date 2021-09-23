@@ -37,11 +37,15 @@ export const CREATE_PROJECT = gql`
   }
 `;
 
-export const PERSIST_PROJECT = gql`
-  mutation PersistProject($projectId: UUID!) {
-    updateProject(input: { id: $projectId, persist: true }) {
+
+export const SAVE_PROJECT = gql`
+  mutation UpdateProject($projectId: UUID!, $title: String!, $description: String!, $readme: String!) {
+    updateProject(input: { id: $projectId, persist: true, title: $title, description: $description, readme: $readme }) {
       id
       persist
+      title
+      description
+      readme
     }
   }
 `;

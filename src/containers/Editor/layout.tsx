@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Flex, Text } from "theme-ui";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import { FaCodeBranch, FaDiscord, FaTwitter, FaArrowAltCircleDown } from "react-icons/fa";
+import { FaDiscord, FaTwitter, FaCog } from "react-icons/fa";
 
 import { Header as HeaderRoot } from "layout/Header";
 import { default as FlowButton } from "components/Button";
@@ -19,7 +18,6 @@ import {
   Header,
   NavButton,
   Nav,
-  ShareSaveButton,
   AnimatedText
 } from "./components";
 
@@ -39,7 +37,7 @@ const EditorLayout: React.FC = () => {
   const [showExamples, toggleShowExamples] = useState(false);
   const [projectIsPlayground, setIsPlayground] = useState(false);
 
-  const { project, mutator, isSavingCode, isLoading, active } = useProject();
+  const { project, isSavingCode, isLoading, active } = useProject();
 
   useEffect(() => {
     if (project && project.id) {
@@ -174,22 +172,14 @@ const EditorLayout: React.FC = () => {
                   )}
                 </AnimatePresence>
               </Text>
-              {project && (
-                <ShareSaveButton
-                  url={window.location.href}
-                  saveText={project.parentId ? "Fork" : "Save"}
-                  showShare={project.persist}
-                  onSave={() => mutator.saveProject(!!project.parentId)}
-                  icon={project.parentId ? FaCodeBranch : FaCloudUploadAlt}
-                />
-              )}
+            
               {project && (
                 <>
                 <FlowButton
-                  className="violet"
+                  className="green"
                   onClick={() => toggleShowExport(true)}
-                  Icon={FaArrowAltCircleDown}
-                >Export
+                  Icon={FaCog}
+                >Project Settings
                 </FlowButton>
                 </>
               )}
