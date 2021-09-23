@@ -70,7 +70,7 @@ export const UPDATE_ACCOUNT_DRAFT_CODE = gql`
 `;
 
 export const UPDATE_PROJECT_DETAILS = gql`
-  mutation UpdateAccountDeployedCode(
+  mutation UpdateProjectDetails(
     $projectId: UUID!
     $accountId: UUID!
     $title: String!

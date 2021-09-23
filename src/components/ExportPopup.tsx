@@ -37,7 +37,7 @@ const ExportPopup: React.FC<{
 
 
 
-  const { project } = useProject();
+  const { project, mutator } = useProject();
     console.log("FROM EXPORT POPUP, project:", project);
   const [processing, setProcessing] = useState(false);
   const [projectName, setProjectName] = useState(generateProjectName());
@@ -123,7 +123,10 @@ const ExportPopup: React.FC<{
           <Label>description</Label>
           <Input
             value="I'm the new description!"
-            // onChange={event => setFolderName(event.target.value)}
+
+            // should use a form submission instead, throwing here to test
+            onChange={event => mutator.updateProjectDetails()}
+
           />
         </InputBlock>
 

@@ -25,7 +25,6 @@ import {
 
 import { useProject } from "providers/Project/projectHooks";
 
-
 const FDP = [
   "f1383d67-6f0a-4be7-8e61-f6141ebdd92c",
   "d1c458d3-7e00-44eb-a93f-544911315e35",
@@ -39,7 +38,7 @@ const EditorLayout: React.FC = () => {
   const [showExamples, toggleShowExamples] = useState(false);
   const [projectIsPlayground, setIsPlayground] = useState(false);
 
-  const { project, mutator, isSavingCode, isLoading, active } = useProject();
+  const { project, mutator, isSavingCode, isLoading, active } = useProject(); 
   console.log("PROJECT:,", project);
   
 
