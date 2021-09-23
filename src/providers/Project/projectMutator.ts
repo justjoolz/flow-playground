@@ -139,6 +139,31 @@ export default class ProjectMutator {
     });
   }
 
+  // update project title, description and readme
+  async updateProjectDetails(account: Account, index: number, title: string, description: string, readme: string) {
+    if (this.isLocal) {
+      const project = await this.createProject();
+      account = project.accounts[index];
+      unregisterOnCloseSaveMessage();
+    }
+
+    const res = await this.client.mutate({
+      mutation: UPDATE_PROJECT_DETAILS,
+      variables: {
+        projectId: this.projectId,
+        accountId: account.id,
+        title: title,
+        description: description,
+        readme: readme,
+      },
+      refetchQueries: [
+        { query: GET_PROJECT, variables: { projectId: this.projectId } },
+      ],
+    });
+    return res;
+  }
+
+
   async updateAccountDeployedCode(account: Account, index: number) {
     if (this.isLocal) {
       const project = await this.createProject();

@@ -7,6 +7,7 @@ import useGetProject from './projectHooks';
 import { GET_ACTIVE_PROJECT } from 'api/apollo/queries';
 import { Project, Account } from 'api/apollo/generated/graphql';
 import { getParams, scriptTypes } from '../../util/url';
+import { getDescription } from 'graphql';
 
 export enum EntityType {
   Account = 1,
@@ -24,6 +25,7 @@ export interface ProjectContextValue {
   project: Project | null;
   isLoading: boolean;
   mutator: ProjectMutator;
+  updateProjectDetails: () => Promise<any>;
   updateAccountDeployedCode: () => Promise<any>;
   updateAccountDraftCode: (value: string) => Promise<any>;
   updateSelectedContractAccount: (accountIndex: number) => void;
@@ -108,6 +110,23 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
   const mutator = new ProjectMutator(client, projectID, isLocal);
 
   let timeout: any;
+
+  // update project title, description and readme
+  const updateProjectDetails: any = async (title: string, description: string, readme: string) => {
+    clearTimeout(timeout);
+    const res = await mutator.updateProjectDetails(
+        project.accounts[active.index],
+        active.index,
+        title,
+        description,
+        readme
+    );
+    setIsSaving(true);
+    timeout = setTimeout(() => {
+      setIsSaving(false);
+    }, 1000);
+    return res;
+  };
 
   const updateAccountDeployedCode: any = async () => {
     clearTimeout(timeout);
@@ -420,6 +439,7 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
         isLoading,
         mutator,
         isSavingCode,
+        updateProjectDetails,
         updateAccountDeployedCode,
         updateAccountDraftCode,
         updateScriptTemplate,

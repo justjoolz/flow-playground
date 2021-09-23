@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { uniqueNamesGenerator, adjectives, colors, } from 'unique-names-generator';
 import { FaSyncAlt } from 'react-icons/fa';
 import { useProject } from 'providers/Project/projectHooks';
@@ -34,7 +34,11 @@ const ExportPopup: React.FC<{
   visible: boolean;
   triggerClose?: (e: React.SyntheticEvent) => any;
 }> = ({ visible, triggerClose }) => {
+
+
+
   const { project } = useProject();
+    console.log("FROM EXPORT POPUP, project:", project);
   const [processing, setProcessing] = useState(false);
   const [projectName, setProjectName] = useState(generateProjectName());
   const [folderName, setFolderName] = useState('cadence');
@@ -111,6 +115,19 @@ const ExportPopup: React.FC<{
           />
           <InputIcon icon={<FaSyncAlt/>} onClick={regenerateProjectName}/>
         </InputBlock>
+
+
+
+        {/* MATT TEST INPUT */}
+        <InputBlock mb={'30px'}>
+          <Label>description</Label>
+          <Input
+            value="I'm the new description!"
+            // onChange={event => setFolderName(event.target.value)}
+          />
+        </InputBlock>
+
+
         <InputBlock mb={'30px'}>
           <Label>Cadence Folder</Label>
           <Input

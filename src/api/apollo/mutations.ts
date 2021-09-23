@@ -69,6 +69,26 @@ export const UPDATE_ACCOUNT_DRAFT_CODE = gql`
   }
 `;
 
+export const UPDATE_PROJECT_DETAILS = gql`
+  mutation UpdateAccountDeployedCode(
+    $projectId: UUID!
+    $accountId: UUID!
+    $title: String!
+    $description: String!
+    $readme: String!
+  ) {
+    updateAccount(
+      input: { projectId: $projectId, id: $accountId, title: $title, description: $description, readme: $readme }
+    ) {
+      id
+      address
+      draftCode
+      deployedCode
+      deployedContracts
+    }
+  }
+`;
+
 export const UPDATE_ACCOUNT_DEPLOYED_CODE = gql`
   mutation UpdateAccountDeployedCode(
     $projectId: UUID!
