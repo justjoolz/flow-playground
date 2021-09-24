@@ -34,7 +34,7 @@ interface PopupContainerProps {
 export const PopupContainer = styled(motion.div)<PopupContainerProps>`
   display: flex;
   width: ${({ width }) => width};
-  max-width: 30%;
+  max-width: 80%;
   flex-direction: column;
   padding: 20px;
   border-radius: 6px;
