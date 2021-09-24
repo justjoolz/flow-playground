@@ -4,6 +4,8 @@ import { FaCloudUploadAlt, FaSyncAlt, FaCodeBranch } from "react-icons/fa";
 import { useProject } from 'providers/Project/projectHooks';
 import { default as FlowButton } from 'components/Button';
 
+import ReactDOM from "react-dom";
+import MDEditor from '@uiw/react-md-editor';
 // import { Project } from 'api/apollo/generated/graphql'; // not sure if required, can use project context instead?
 
 import {
