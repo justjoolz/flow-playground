@@ -11,7 +11,7 @@ import {
   WhiteOverlay,
   SpaceBetween,
 } from 'components/Common';
-import { Flex } from "theme-ui";
+import { Flex, useThemeUI } from "theme-ui";
 
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
@@ -40,6 +40,9 @@ const ExportPopup: React.FC<{
   visible: boolean;
   triggerClose?: (e: React.SyntheticEvent) => any;
 }> = ({ visible, triggerClose }) => {
+
+  const { theme } = useThemeUI();
+
   const { project, mutator } = useProject();
   
   const [projectName, setProjectName] = useState(project.title ? project.title : generateProjectName());
@@ -163,16 +166,21 @@ const ExportPopup: React.FC<{
         <InputBlock mb={'30px'}>
           <Flex
                 sx={{
-                  alignItems: "flex-end"
+                  alignItems: "flex-end",
+                  justifyContent: "center",
+                  border: `1px solid ${theme.colors.borderDark}`,
+                  borderRadius: "2px",
+                  width: "75%",
+                  padding: "0.5rem"
                 }}
             >
               <Flex
                 sx={{
                     flexDirection: "column",
-                    width: "50%",
                     marginRight: "1.0rem",
                     marginTop: "1.0rem",
-                    marginBottom: "0.3rem"
+                    marginBottom: "0.15rem",
+                    flex: "1"
                 }}
               >
                 <Label >Cadence Folder</Label>
@@ -205,6 +213,7 @@ const ExportPopup: React.FC<{
               onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
             > Save! 
             </FlowButton>
+
             {project && (
                 <ShareSaveButton
                   url={window.location.href}
@@ -214,6 +223,7 @@ const ExportPopup: React.FC<{
                   icon={project.parentId ? FaCodeBranch : FaCloudUploadAlt}
                 />
               )}
+
           </SpaceBetween>
         )}
       </PopupContainer>
