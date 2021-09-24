@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { uniqueNamesGenerator, adjectives, colors, } from 'unique-names-generator';
-import { FaCloudUploadAlt, FaSyncAlt, FaCodeBranch } from "react-icons/fa";
-import { GrClose } from "react-icons/gr";
+import { FaTimesCircle, FaSyncAlt } from "react-icons/fa";
 import { useProject } from 'providers/Project/projectHooks';
 import { default as FlowButton } from 'components/Button';
 import {
@@ -122,13 +121,13 @@ const ExportPopup: React.FC<{
           <PopupHeader mb="20px" color="#575E89" lineColor="#B4BEFC">
             Project Details/Settings
           </PopupHeader>
-            <FlowButton 
-                className="grey icon-button" 
-                onClick={triggerClose}
-                Icon={GrClose}
-                disableHoverZoom={true}
-                isIconButton={true}
-            />
+          <FlowButton 
+            className="grey" 
+            onClick={triggerClose}
+            Icon={FaTimesCircle}
+            disableHoverZoom={true}
+            isIconButton={true}
+          />
         </Flex>
         <InputBlock mb={'12px'}>
           <Label>Project Name</Label>
