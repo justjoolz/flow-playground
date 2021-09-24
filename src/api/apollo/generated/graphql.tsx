@@ -3,6 +3,8 @@ import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -10,157 +12,48 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  UUID: any;
-  Version: any;
   Address: any;
   ExecutionResultValue: any;
   RawExecutionResult: any;
+  UUID: any;
+  Version: any;
 };
 
-export type Project = {
-  __typename?: 'Project';
+export type Account = {
+  __typename?: 'Account';
   id: Scalars['UUID'];
-  publicId: Scalars['UUID'];
-  parentId?: Maybe<Scalars['UUID']>;
-  title: Scalars['String'];
-  seed: Scalars['Int'];
-  version: Scalars['Version'];
-  persist?: Maybe<Scalars['Boolean']>;
-  mutable?: Maybe<Scalars['Boolean']>;
-  accounts?: Maybe<Array<Account>>;
-  transactionTemplates?: Maybe<Array<TransactionTemplate>>;
-  transactionExecutions?: Maybe<Array<TransactionExecution>>;
-  scriptTemplates?: Maybe<Array<ScriptTemplate>>;
-  scriptExecutions?: Maybe<Array<ScriptExecution>>;
-};
-
-export type NewProject = {
-  parentId?: Maybe<Scalars['UUID']>;
-  title: Scalars['String'];
-  seed: Scalars['Int'];
-  accounts?: Maybe<Array<Scalars['String']>>;
-  transactionTemplates?: Maybe<Array<NewProjectTransactionTemplate>>;
-  scriptTemplates?: Maybe<Array<NewProjectScriptTemplate>>;
-};
-
-export type NewProjectTransactionTemplate = {
-  title: Scalars['String'];
-  script: Scalars['String'];
-};
-
-export type NewScriptExecution = {
-  projectId: Scalars['UUID'];
-  script: Scalars['String'];
-  arguments?: Maybe<Array<Scalars['String']>>;
-};
-
-export type ProgramPosition = {
-  __typename?: 'ProgramPosition';
-  offset: Scalars['Int'];
-  line: Scalars['Int'];
-  column: Scalars['Int'];
-};
-
-export type Query = {
-  __typename?: 'Query';
-  account: Account;
-  activeProject: Scalars['Boolean'];
-  activeProjectId?: Maybe<Scalars['Int']>;
-  cachedExecutionResults: Array<Maybe<ExecutionResults>>;
-  localProject?: Maybe<Project>;
-  playgroundInfo: PlaygroundInfo;
-  project: Project;
-  scriptTemplate: ScriptTemplate;
-  transactionTemplate: TransactionTemplate;
+  address: Scalars['Address'];
+  draftCode: Scalars['String'];
+  deployedCode: Scalars['String'];
+  deployedContracts: Array<Scalars['String']>;
+  state: Scalars['String'];
 };
 
 
-export type QueryAccountArgs = {
-  accountId?: Maybe<Scalars['String']>;
-  id: Scalars['UUID'];
-  projectId: Scalars['UUID'];
+export type Event = {
+  __typename?: 'Event';
+  type: Scalars['String'];
+  values: Array<Scalars['String']>;
+};
+
+export type ExecutionResult = {
+  __typename?: 'ExecutionResult';
+  timestamp?: Maybe<Scalars['String']>;
+  tag?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['ExecutionResultValue']>;
+  label?: Maybe<Scalars['String']>;
+};
+
+export type ExecutionResultInput = {
+  data?: Maybe<Scalars['RawExecutionResult']>;
 };
 
 
-export type QueryProjectArgs = {
-  id: Scalars['UUID'];
-};
-
-
-export type QueryScriptTemplateArgs = {
-  id: Scalars['UUID'];
-  projectId: Scalars['UUID'];
-};
-
-
-export type QueryTransactionTemplateArgs = {
-  id: Scalars['UUID'];
-  projectId: Scalars['UUID'];
-};
-
-export type TransactionTemplate = {
-  __typename?: 'TransactionTemplate';
-  id: Scalars['UUID'];
-  index: Scalars['Int'];
-  title: Scalars['String'];
-  script: Scalars['String'];
-};
-
-export type TransactionExecution = {
-  __typename?: 'TransactionExecution';
-  id: Scalars['UUID'];
-  script: Scalars['String'];
-  arguments?: Maybe<Array<Scalars['String']>>;
-  signers: Array<Account>;
-  errors?: Maybe<Array<ProgramError>>;
-  events: Array<Maybe<Event>>;
-  logs: Array<Scalars['String']>;
-};
-
-export type NewTransactionTemplate = {
-  projectId: Scalars['UUID'];
-  title: Scalars['String'];
-  script: Scalars['String'];
-};
-
-export type UpdateTransactionTemplate = {
-  id: Scalars['UUID'];
-  title?: Maybe<Scalars['String']>;
-  projectId: Scalars['UUID'];
-  index?: Maybe<Scalars['Int']>;
-  script?: Maybe<Scalars['String']>;
-};
-
-
-
-export type ProgramError = {
-  __typename?: 'ProgramError';
-  message: Scalars['String'];
-  startPosition?: Maybe<ProgramPosition>;
-  endPosition?: Maybe<ProgramPosition>;
-};
-
-export type ScriptExecution = {
-  __typename?: 'ScriptExecution';
-  id: Scalars['UUID'];
-  script: Scalars['String'];
-  arguments?: Maybe<Array<Scalars['String']>>;
-  errors?: Maybe<Array<ProgramError>>;
-  value: Scalars['String'];
-  logs: Array<Scalars['String']>;
-};
-
-export type NewProjectScriptTemplate = {
-  title: Scalars['String'];
-  script: Scalars['String'];
-};
-
-export type UpdateScriptTemplate = {
-  id: Scalars['UUID'];
-  title?: Maybe<Scalars['String']>;
-  projectId: Scalars['UUID'];
-  index?: Maybe<Scalars['Int']>;
-  script?: Maybe<Scalars['String']>;
+export type ExecutionResults = {
+  __typename?: 'ExecutionResults';
+  TRANSACTION?: Maybe<Array<Maybe<ExecutionResult>>>;
+  SCRIPT?: Maybe<Array<Maybe<ExecutionResult>>>;
+  CONTRACT?: Maybe<Array<Maybe<ExecutionResult>>>;
 };
 
 export type Mutation = {
@@ -255,16 +148,139 @@ export type MutationUpdateTransactionTemplateArgs = {
   input: UpdateTransactionTemplate;
 };
 
+export type NewProject = {
+  parentId?: Maybe<Scalars['UUID']>;
+  title: Scalars['String'];
+  seed: Scalars['Int'];
+  accounts?: Maybe<Array<Scalars['String']>>;
+  transactionTemplates?: Maybe<Array<NewProjectTransactionTemplate>>;
+  scriptTemplates?: Maybe<Array<NewProjectScriptTemplate>>;
+};
+
+export type NewProjectScriptTemplate = {
+  title: Scalars['String'];
+  script: Scalars['String'];
+};
+
+export type NewProjectTransactionTemplate = {
+  title: Scalars['String'];
+  script: Scalars['String'];
+};
+
+export type NewScriptExecution = {
+  projectId: Scalars['UUID'];
+  script: Scalars['String'];
+  arguments?: Maybe<Array<Scalars['String']>>;
+};
+
+export type NewScriptTemplate = {
+  projectId: Scalars['UUID'];
+  title: Scalars['String'];
+  script: Scalars['String'];
+};
+
+export type NewTransactionExecution = {
+  projectId: Scalars['UUID'];
+  script: Scalars['String'];
+  signers?: Maybe<Array<Scalars['Address']>>;
+  arguments?: Maybe<Array<Scalars['String']>>;
+};
+
+export type NewTransactionTemplate = {
+  projectId: Scalars['UUID'];
+  title: Scalars['String'];
+  script: Scalars['String'];
+};
+
 export type PlaygroundInfo = {
   __typename?: 'PlaygroundInfo';
   apiVersion: Scalars['Version'];
   cadenceVersion: Scalars['Version'];
 };
 
-export type Event = {
-  __typename?: 'Event';
-  type: Scalars['String'];
-  values: Array<Scalars['String']>;
+export type ProgramError = {
+  __typename?: 'ProgramError';
+  message: Scalars['String'];
+  startPosition?: Maybe<ProgramPosition>;
+  endPosition?: Maybe<ProgramPosition>;
+};
+
+export type ProgramPosition = {
+  __typename?: 'ProgramPosition';
+  offset: Scalars['Int'];
+  line: Scalars['Int'];
+  column: Scalars['Int'];
+};
+
+export type Project = {
+  __typename?: 'Project';
+  id: Scalars['UUID'];
+  publicId: Scalars['UUID'];
+  parentId?: Maybe<Scalars['UUID']>;
+  title: Scalars['String'];
+  seed: Scalars['Int'];
+  version: Scalars['Version'];
+  persist?: Maybe<Scalars['Boolean']>;
+  mutable?: Maybe<Scalars['Boolean']>;
+  accounts?: Maybe<Array<Account>>;
+  transactionTemplates?: Maybe<Array<TransactionTemplate>>;
+  transactionExecutions?: Maybe<Array<TransactionExecution>>;
+  scriptTemplates?: Maybe<Array<ScriptTemplate>>;
+  scriptExecutions?: Maybe<Array<ScriptExecution>>;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  account: Account;
+  activeProject: Scalars['Boolean'];
+  activeProjectId?: Maybe<Scalars['Int']>;
+  cachedExecutionResults: Array<Maybe<ExecutionResults>>;
+  localProject?: Maybe<Project>;
+  playgroundInfo: PlaygroundInfo;
+  project: Project;
+  scriptTemplate: ScriptTemplate;
+  transactionTemplate: TransactionTemplate;
+};
+
+
+export type QueryAccountArgs = {
+  accountId?: Maybe<Scalars['String']>;
+  id: Scalars['UUID'];
+  projectId: Scalars['UUID'];
+};
+
+
+export type QueryProjectArgs = {
+  id: Scalars['UUID'];
+};
+
+
+export type QueryScriptTemplateArgs = {
+  id: Scalars['UUID'];
+  projectId: Scalars['UUID'];
+};
+
+
+export type QueryTransactionTemplateArgs = {
+  id: Scalars['UUID'];
+  projectId: Scalars['UUID'];
+};
+
+
+export enum ResultType {
+  Transaction = 'TRANSACTION',
+  Script = 'SCRIPT',
+  Contract = 'CONTRACT'
+}
+
+export type ScriptExecution = {
+  __typename?: 'ScriptExecution';
+  id: Scalars['UUID'];
+  script: Scalars['String'];
+  arguments?: Maybe<Array<Scalars['String']>>;
+  errors?: Maybe<Array<ProgramError>>;
+  value: Scalars['String'];
+  logs: Array<Scalars['String']>;
 };
 
 export type ScriptTemplate = {
@@ -275,11 +291,25 @@ export type ScriptTemplate = {
   script: Scalars['String'];
 };
 
-export type UpdateProject = {
+export type TransactionExecution = {
+  __typename?: 'TransactionExecution';
   id: Scalars['UUID'];
-  title?: Maybe<Scalars['String']>;
-  persist?: Maybe<Scalars['Boolean']>;
+  script: Scalars['String'];
+  arguments?: Maybe<Array<Scalars['String']>>;
+  signers: Array<Account>;
+  errors?: Maybe<Array<ProgramError>>;
+  events: Array<Maybe<Event>>;
+  logs: Array<Scalars['String']>;
 };
+
+export type TransactionTemplate = {
+  __typename?: 'TransactionTemplate';
+  id: Scalars['UUID'];
+  index: Scalars['Int'];
+  title: Scalars['String'];
+  script: Scalars['String'];
+};
+
 
 export type UpdateAccount = {
   id: Scalars['UUID'];
@@ -288,64 +318,36 @@ export type UpdateAccount = {
   deployedCode?: Maybe<Scalars['String']>;
 };
 
-export type Account = {
-  __typename?: 'Account';
+export type UpdateProject = {
   id: Scalars['UUID'];
-  address: Scalars['Address'];
-  draftCode: Scalars['String'];
-  deployedCode: Scalars['String'];
-  deployedContracts: Array<Scalars['String']>;
-  state: Scalars['String'];
+  title?: Maybe<Scalars['String']>;
+  persist?: Maybe<Scalars['Boolean']>;
 };
 
-
-export type NewTransactionExecution = {
+export type UpdateScriptTemplate = {
+  id: Scalars['UUID'];
+  title?: Maybe<Scalars['String']>;
   projectId: Scalars['UUID'];
-  script: Scalars['String'];
-  signers?: Maybe<Array<Scalars['Address']>>;
-  arguments?: Maybe<Array<Scalars['String']>>;
+  index?: Maybe<Scalars['Int']>;
+  script?: Maybe<Scalars['String']>;
 };
 
-export type NewScriptTemplate = {
+export type UpdateTransactionTemplate = {
+  id: Scalars['UUID'];
+  title?: Maybe<Scalars['String']>;
   projectId: Scalars['UUID'];
-  title: Scalars['String'];
-  script: Scalars['String'];
+  index?: Maybe<Scalars['Int']>;
+  script?: Maybe<Scalars['String']>;
 };
 
-
-
-export enum ResultType {
-  Transaction = 'TRANSACTION',
-  Script = 'SCRIPT',
-  Contract = 'CONTRACT'
-}
-
-export type ExecutionResult = {
-  __typename?: 'ExecutionResult';
-  timestamp?: Maybe<Scalars['String']>;
-  tag?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['ExecutionResultValue']>;
-  label?: Maybe<Scalars['String']>;
-};
-
-export type ExecutionResults = {
-  __typename?: 'ExecutionResults';
-  TRANSACTION?: Maybe<Array<Maybe<ExecutionResult>>>;
-  SCRIPT?: Maybe<Array<Maybe<ExecutionResult>>>;
-  CONTRACT?: Maybe<Array<Maybe<ExecutionResult>>>;
-};
-
-export type ExecutionResultInput = {
-  data?: Maybe<Scalars['RawExecutionResult']>;
-};
 
 export type CreateProjectMutationVariables = Exact<{
   parentId?: Maybe<Scalars['UUID']>;
-  accounts: Array<Scalars['String']>;
+  accounts: Array<Scalars['String']> | Scalars['String'];
   seed: Scalars['Int'];
   title: Scalars['String'];
-  transactionTemplates: Array<NewProjectTransactionTemplate>;
-  scriptTemplates: Array<NewProjectScriptTemplate>;
+  transactionTemplates: Array<NewProjectTransactionTemplate> | NewProjectTransactionTemplate;
+  scriptTemplates: Array<NewProjectScriptTemplate> | NewProjectScriptTemplate;
 }>;
 
 
@@ -459,8 +461,8 @@ export type DeleteTransactionTemplateMutation = (
 export type CreateTransactionExecutionMutationVariables = Exact<{
   projectId: Scalars['UUID'];
   script: Scalars['String'];
-  signers?: Maybe<Array<Scalars['Address']>>;
-  arguments?: Maybe<Array<Scalars['String']>>;
+  signers?: Maybe<Array<Scalars['Address']> | Scalars['Address']>;
+  arguments?: Maybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
 
 
@@ -531,7 +533,7 @@ export type DeleteScriptTemplateMutation = (
 export type CreateScriptExecutionMutationVariables = Exact<{
   projectId: Scalars['UUID'];
   script: Scalars['String'];
-  arguments?: Maybe<Array<Scalars['String']>>;
+  arguments?: Maybe<Array<Scalars['String']> | Scalars['String']>;
 }>;
 
 
@@ -757,7 +759,9 @@ export const ContractResultsFragmentDoc = gql`
     `;
 export const CreateProjectDocument = gql`
     mutation CreateProject($parentId: UUID, $accounts: [String!]!, $seed: Int!, $title: String!, $transactionTemplates: [NewProjectTransactionTemplate!]!, $scriptTemplates: [NewProjectScriptTemplate!]!) {
-  project: createProject(input: {parentId: $parentId, accounts: $accounts, seed: $seed, title: $title, transactionTemplates: $transactionTemplates, scriptTemplates: $scriptTemplates}) {
+  project: createProject(
+    input: {parentId: $parentId, accounts: $accounts, seed: $seed, title: $title, transactionTemplates: $transactionTemplates, scriptTemplates: $scriptTemplates}
+  ) {
     id
     parentId
     mutable
@@ -903,7 +907,9 @@ export type UpdateAccountDraftCodeMutationResult = ApolloReactCommon.MutationRes
 export type UpdateAccountDraftCodeMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAccountDraftCodeMutation, UpdateAccountDraftCodeMutationVariables>;
 export const UpdateAccountDeployedCodeDocument = gql`
     mutation UpdateAccountDeployedCode($projectId: UUID!, $accountId: UUID!, $code: String!) {
-  updateAccount(input: {projectId: $projectId, id: $accountId, deployedCode: $code}) {
+  updateAccount(
+    input: {projectId: $projectId, id: $accountId, deployedCode: $code}
+  ) {
     id
     address
     draftCode
@@ -941,7 +947,9 @@ export type UpdateAccountDeployedCodeMutationResult = ApolloReactCommon.Mutation
 export type UpdateAccountDeployedCodeMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAccountDeployedCodeMutation, UpdateAccountDeployedCodeMutationVariables>;
 export const UpdateTransactionTemplateDocument = gql`
     mutation UpdateTransactionTemplate($projectId: UUID!, $templateId: UUID!, $script: String!, $title: String) {
-  updateTransactionTemplate(input: {projectId: $projectId, id: $templateId, script: $script, title: $title}) {
+  updateTransactionTemplate(
+    input: {projectId: $projectId, id: $templateId, script: $script, title: $title}
+  ) {
     id
     script
     index
@@ -979,7 +987,9 @@ export type UpdateTransactionTemplateMutationResult = ApolloReactCommon.Mutation
 export type UpdateTransactionTemplateMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateTransactionTemplateMutation, UpdateTransactionTemplateMutationVariables>;
 export const CreateTransactionTemplateDocument = gql`
     mutation CreateTransactionTemplate($projectId: UUID!, $script: String!, $title: String!) {
-  createTransactionTemplate(input: {projectId: $projectId, script: $script, title: $title}) {
+  createTransactionTemplate(
+    input: {projectId: $projectId, script: $script, title: $title}
+  ) {
     id
     script
     title
@@ -1046,7 +1056,9 @@ export type DeleteTransactionTemplateMutationResult = ApolloReactCommon.Mutation
 export type DeleteTransactionTemplateMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteTransactionTemplateMutation, DeleteTransactionTemplateMutationVariables>;
 export const CreateTransactionExecutionDocument = gql`
     mutation CreateTransactionExecution($projectId: UUID!, $script: String!, $signers: [Address!], $arguments: [String!]) {
-  createTransactionExecution(input: {projectId: $projectId, script: $script, signers: $signers, arguments: $arguments}) {
+  createTransactionExecution(
+    input: {projectId: $projectId, script: $script, signers: $signers, arguments: $arguments}
+  ) {
     id
     script
     errors {
@@ -1100,7 +1112,9 @@ export type CreateTransactionExecutionMutationResult = ApolloReactCommon.Mutatio
 export type CreateTransactionExecutionMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateTransactionExecutionMutation, CreateTransactionExecutionMutationVariables>;
 export const UpdateScripTemplateDocument = gql`
     mutation UpdateScripTemplate($projectId: UUID!, $templateId: UUID!, $script: String!, $title: String) {
-  updateScriptTemplate(input: {projectId: $projectId, id: $templateId, script: $script, title: $title}) {
+  updateScriptTemplate(
+    input: {projectId: $projectId, id: $templateId, script: $script, title: $title}
+  ) {
     id
     script
     index
@@ -1138,7 +1152,9 @@ export type UpdateScripTemplateMutationResult = ApolloReactCommon.MutationResult
 export type UpdateScripTemplateMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateScripTemplateMutation, UpdateScripTemplateMutationVariables>;
 export const CreateScriptTemplateDocument = gql`
     mutation CreateScriptTemplate($projectId: UUID!, $script: String!, $title: String!) {
-  createScriptTemplate(input: {projectId: $projectId, script: $script, title: $title}) {
+  createScriptTemplate(
+    input: {projectId: $projectId, script: $script, title: $title}
+  ) {
     id
     script
     title
@@ -1205,7 +1221,9 @@ export type DeleteScriptTemplateMutationResult = ApolloReactCommon.MutationResul
 export type DeleteScriptTemplateMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteScriptTemplateMutation, DeleteScriptTemplateMutationVariables>;
 export const CreateScriptExecutionDocument = gql`
     mutation CreateScriptExecution($projectId: UUID!, $script: String!, $arguments: [String!]) {
-  createScriptExecution(input: {projectId: $projectId, script: $script, arguments: $arguments}) {
+  createScriptExecution(
+    input: {projectId: $projectId, script: $script, arguments: $arguments}
+  ) {
     id
     script
     errors {
@@ -1255,7 +1273,11 @@ export type CreateScriptExecutionMutationResult = ApolloReactCommon.MutationResu
 export type CreateScriptExecutionMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateScriptExecutionMutation, CreateScriptExecutionMutationVariables>;
 export const SetExecutionResultsDocument = gql`
     mutation SetExecutionResults($resultType: ResultType!, $rawResult: RawExecutionResult!, $label: String) {
-  updateCachedExecutionResults(resultType: $resultType, rawResult: $rawResult, label: $label) @client
+  updateCachedExecutionResults(
+    resultType: $resultType
+    rawResult: $rawResult
+    label: $label
+  ) @client
 }
     `;
 export type SetExecutionResultsMutationFn = ApolloReactCommon.MutationFunction<SetExecutionResultsMutation, SetExecutionResultsMutationVariables>;
