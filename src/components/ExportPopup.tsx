@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { uniqueNamesGenerator, adjectives, colors, } from 'unique-names-generator';
 import { FaCloudUploadAlt, FaSyncAlt, FaCodeBranch } from "react-icons/fa";
+import { GrClose } from "react-icons/gr";
 import { useProject } from 'providers/Project/projectHooks';
 import { default as FlowButton } from 'components/Button';
 import {
@@ -10,6 +11,10 @@ import {
   WhiteOverlay,
   SpaceBetween,
 } from 'components/Common';
+import { Flex } from "theme-ui";
+
+// import styled from "@emotion/styled";
+
 
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
@@ -100,6 +105,10 @@ const ExportPopup: React.FC<{
     },
   };
 
+// const StyledContainer = styled.section`
+//   justify-content: left-end;
+// `;
+
   return (
     <FullScreenContainer
       elevation={15}
@@ -108,9 +117,27 @@ const ExportPopup: React.FC<{
       variants={containerFrames}
     >
       <PopupContainer width="550px" variants={popupFrames}>
-        <PopupHeader mb="20px" color="#575E89" lineColor="#B4BEFC">
-          Project Details/Settings
-        </PopupHeader>
+
+        <Flex
+            sx={{
+            //   justifyContent: "end"
+              justifyContent: "space-between",
+              alignItems: "flex-end"
+            }}
+        >
+          <PopupHeader mb="20px" color="#575E89" lineColor="#B4BEFC">
+            Project Details/Settings
+          </PopupHeader>
+            <FlowButton 
+                className="grey icon-button" 
+                onClick={triggerClose}
+                Icon={GrClose}
+                disableHoverZoom={true}
+                isIconButton={true}
+            />
+        </Flex>
+
+
         <InputBlock mb={'12px'}>
           <Label>Project Name</Label>
           <Input
@@ -156,10 +183,6 @@ const ExportPopup: React.FC<{
           <p>Processing...</p>
         ) : (
           <SpaceBetween>
-            <FlowButton className="grey modal" onClick={triggerClose}>
-              Close
-            </FlowButton>
-
             <FlowButton
               className="violet modal"
               onClick={async () => {

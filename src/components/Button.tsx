@@ -50,6 +50,14 @@ const StyledButton: React.FC<StyledButtonProps> = styled(ThemedButton)`
     font-size: 16px;
     font-weight: bold;
   }
+
+  &.icon-button{
+      display:block;
+      border-radius: 50%;
+      border: 1px solid gray;
+      width: 50px;
+      height: 50px;
+  }
   
   display: flex;
   align-items: center;
@@ -66,6 +74,8 @@ interface ButtonProps {
   isLoading?: boolean;
   isActive?: boolean;
   disabled?: boolean;
+  disableHoverZoom?: boolean;
+  isIconButton?: boolean;
 }
 
 const noop = (): void => {};
@@ -78,11 +88,13 @@ const Button: React.FC<ButtonProps> = ({
   Icon,
   isLoading,
   isActive,
-  disabled
+  disabled,
+  disableHoverZoom,
+  isIconButton
 }) => {
   return (
     <motion.div
-      whileHover={{ scale: 1.05 }}
+      whileHover={!disableHoverZoom && { scale: 1.05 }}
     >
       <StyledButton
         style={style}
@@ -94,7 +106,7 @@ const Button: React.FC<ButtonProps> = ({
         {isLoading ? (
           <FaSpinner className="icon loading" />
         ) : Icon ? (
-          <Icon className="icon" />
+          <Icon className={!isIconButton && "icon"} />
         ) : null}
       </StyledButton>
     </motion.div>
