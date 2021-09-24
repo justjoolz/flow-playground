@@ -4,7 +4,7 @@ import ApolloClient from 'apollo-client';
 
 import {
   CREATE_PROJECT,
-  PERSIST_PROJECT,
+  SAVE_PROJECT,
   SET_ACTIVE_PROJECT,
   UPDATE_ACCOUNT_DRAFT_CODE,
   UPDATE_ACCOUNT_DEPLOYED_CODE,
@@ -29,6 +29,9 @@ import {
 export default class ProjectMutator {
   client: ApolloClient<object>;
   projectId: string | null = null;
+  title: string;
+  description: string;
+  readme: string;
   isLocal: boolean;
   track: any;
 
@@ -36,10 +39,16 @@ export default class ProjectMutator {
     client: ApolloClient<object>,
     projectId: string | null,
     isLocal: boolean,
+    title: string,
+    description: string,
+    readme: string
   ) {
     this.client = client;
     this.projectId = projectId;
     this.isLocal = isLocal;
+    this.title = title;
+    this.description = description;
+    this.readme = readme;
   }
 
   async createProject(): Promise<Project> {
@@ -93,16 +102,19 @@ export default class ProjectMutator {
     return project;
   }
 
-  async saveProject(isFork: boolean) {
+    async saveProject(isFork: boolean, title: string, description: string, readme: string) {
     if (this.isLocal) {
       await this.createProject();
       unregisterOnCloseSaveMessage();
     }
 
     await this.client.mutate({
-      mutation: PERSIST_PROJECT,
+      mutation: SAVE_PROJECT,
       variables: {
         projectId: this.projectId,
+        title: title,
+        description: description,
+        readme: readme
       },
     });
 

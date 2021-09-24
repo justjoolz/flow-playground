@@ -24,6 +24,11 @@ export interface ProjectContextValue {
   project: Project | null;
   isLoading: boolean;
   mutator: ProjectMutator;
+  updateProject: (
+    title: string,
+    description: string,
+    readme: string
+  ) => Promise<any>;
   updateAccountDeployedCode: () => Promise<any>;
   updateAccountDraftCode: (value: string) => Promise<any>;
   updateSelectedContractAccount: (accountIndex: number) => void;
@@ -104,10 +109,32 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
   });
 
   const projectID = project ? project.id : null;
+  const title = project ? project.title : null;
+  const description = project ? project.description : null;
+  const readme = project ? project.readme : null;
 
-  const mutator = new ProjectMutator(client, projectID, isLocal);
+  const mutator = new ProjectMutator(client, projectID, isLocal, title, description, readme);
 
   let timeout: any;
+
+    const updateProject: any = async (
+        title: string,
+        description: string,
+        readme: string,
+    ) => {
+        clearTimeout(timeout);
+        setIsSaving(true);
+        const res = await mutator.saveProject(
+            project.transactionTemplates[active.index].id,
+            title,
+            description,
+            readme,
+        );
+        timeout = setTimeout(() => {
+            setIsSaving(false);
+        }, 1000);
+        return res;
+    };
 
   const updateAccountDeployedCode: any = async () => {
     clearTimeout(timeout);
