@@ -161,39 +161,37 @@ const ExportPopup: React.FC<{
         <SimpleMDE></SimpleMDE>
 
         <InputBlock mb={'30px'}>
-
-            <Flex
+          <Flex
                 sx={{
-                alignItems: "flex-end"
+                  alignItems: "flex-end"
                 }}
             >
-
-          <Flex
-            sx={{
-                flexDirection: "column",
-                width: "50%",
-                paddingBottom: "0.1rem",
-                marginRight: "1.0rem",
-                marginTop: "1.0rem"
-            }}
-          >
-            <Label>Cadence Folder</Label>
-            <Input
-              value={folderName}
-              onChange={event => setFolderName(event.target.value)}
-            />
-          </Flex>
-            <FlowButton
-              className="violet modal"
-              onClick={async () => {
-                setProcessing(true);
-                await createZip(folderName, projectName, project);
-                setProcessing(false);
-                triggerClose(null);
-              }}
-            >
-              Export
-            </FlowButton>
+              <Flex
+                sx={{
+                    flexDirection: "column",
+                    width: "50%",
+                    marginRight: "1.0rem",
+                    marginTop: "1.0rem",
+                    marginBottom: "0.3rem"
+                }}
+              >
+                <Label >Cadence Folder</Label>
+                <Input
+                  value={folderName}
+                  onChange={event => setFolderName(event.target.value)}
+                />
+              </Flex>
+              <FlowButton
+                className="violet modal"
+                onClick={async () => {
+                  setProcessing(true);
+                  await createZip(folderName, projectName, project);
+                  setProcessing(false);
+                  triggerClose(null);
+                }}
+              >
+                Export
+              </FlowButton>
           </Flex>
         </InputBlock>
 
