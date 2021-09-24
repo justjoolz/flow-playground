@@ -150,19 +150,14 @@ const ExportPopup: React.FC<{
           />
         </InputBlock>
 
-        <InputBlock mb={'30px'}>
+        <InputBlock mb={'12px'}>
           <Label>Project README.md</Label>
-          <textarea  
-            rows={5}
-            cols={5}
+          <SimpleMDE 
             value={projectReadme}
-            onChange={event => setProjectReadme(event.target.value)}
-
-          ></textarea>
+            onChange={v => setProjectReadme(v)} >
+          </SimpleMDE>
         </InputBlock>
         
-        <SimpleMDE></SimpleMDE>
-
         <InputBlock mb={'30px'}>
           <Flex
                 sx={{
