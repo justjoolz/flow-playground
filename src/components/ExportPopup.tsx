@@ -13,9 +13,6 @@ import {
 } from 'components/Common';
 import { Flex } from "theme-ui";
 
-// import styled from "@emotion/styled";
-
-
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 
@@ -105,10 +102,6 @@ const ExportPopup: React.FC<{
     },
   };
 
-// const StyledContainer = styled.section`
-//   justify-content: left-end;
-// `;
-
   return (
     <FullScreenContainer
       elevation={15}
@@ -117,10 +110,8 @@ const ExportPopup: React.FC<{
       variants={containerFrames}
     >
       <PopupContainer width="550px" variants={popupFrames}>
-
         <Flex
             sx={{
-            //   justifyContent: "end"
               justifyContent: "space-between",
               alignItems: "flex-end"
             }}
@@ -136,8 +127,6 @@ const ExportPopup: React.FC<{
                 isIconButton={true}
             />
         </Flex>
-
-
         <InputBlock mb={'12px'}>
           <Label>Project Name</Label>
           <Input
@@ -168,7 +157,6 @@ const ExportPopup: React.FC<{
 
           ></textarea>
         </InputBlock>
-
         
         <SimpleMDE></SimpleMDE>
 
@@ -194,13 +182,11 @@ const ExportPopup: React.FC<{
             >
               Export
             </FlowButton>
-
             <FlowButton
               className="green modal"
               onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
             > Save! 
             </FlowButton>
-
             {project && (
                 <ShareSaveButton
                   url={window.location.href}
