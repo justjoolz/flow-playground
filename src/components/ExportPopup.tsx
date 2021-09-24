@@ -183,7 +183,6 @@ const ExportPopup: React.FC<{
               onChange={event => setFolderName(event.target.value)}
             />
           </Flex>
-
             <FlowButton
               className="violet modal"
               onClick={async () => {
@@ -195,30 +194,13 @@ const ExportPopup: React.FC<{
             >
               Export
             </FlowButton>
-
-            </Flex>
-
+          </Flex>
         </InputBlock>
-
 
         {processing ? (
           <p>Processing...</p>
         ) : (
           <SpaceBetween>
-
-            {/* <FlowButton
-              className="violet modal"
-              onClick={async () => {
-                setProcessing(true);
-                await createZip(folderName, projectName, project);
-                setProcessing(false);
-                triggerClose(null);
-              }}
-            >
-              Export
-            </FlowButton>
- */}
-
 
             <FlowButton
               className="green modal"
