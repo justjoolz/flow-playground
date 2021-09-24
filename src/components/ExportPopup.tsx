@@ -11,6 +11,9 @@ import {
   SpaceBetween,
 } from 'components/Common';
 
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
+
 import { ShareSaveButton } from "../containers/editor/components";
 
 import { createZip } from '../util/generator';
@@ -139,6 +142,8 @@ const ExportPopup: React.FC<{
           ></textarea>
         </InputBlock>
 
+        
+        <SimpleMDE></SimpleMDE>
 
         <InputBlock mb={'30px'}>
           <Label>Cadence Folder</Label>
