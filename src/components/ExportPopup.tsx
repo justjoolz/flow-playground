@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { uniqueNamesGenerator, adjectives, colors, } from 'unique-names-generator';
-import { FaTimesCircle, FaSyncAlt } from "react-icons/fa";
+import { FaTimesCircle, FaSyncAlt, FaCloudUploadAlt } from "react-icons/fa";
 import { useProject } from 'providers/Project/projectHooks';
 import { default as FlowButton } from 'components/Button';
 import {
@@ -36,8 +36,6 @@ const ExportPopup: React.FC<{
   visible: boolean;
   triggerClose?: (e: React.SyntheticEvent) => any;
 }> = ({ visible, triggerClose }) => {
-
-  const { theme } = useThemeUI();
 
   const { project, mutator } = useProject();
   
@@ -108,7 +106,7 @@ const ExportPopup: React.FC<{
       animate={visible ? 'visible' : 'hidden'}
       variants={containerFrames}
     >
-      <PopupContainer width="550px" variants={popupFrames}>
+      <PopupContainer width="660px" variants={popupFrames}>
         <Flex
             sx={{
               justifyContent: "space-between",
@@ -139,10 +137,9 @@ const ExportPopup: React.FC<{
         <InputBlock mb={'12px'}>
           <Label>Project Description</Label>
            <textarea
-          value={projectDescription}
-          rows={3}
-          cols={5}
-          onChange={event => setProjectDescription(event.target.value)}
+            value={projectDescription}
+            rows={3}
+            onChange={event => setProjectDescription(event.target.value)}
           />
         </InputBlock>
         <InputBlock mb={'12px'}>
@@ -152,40 +149,18 @@ const ExportPopup: React.FC<{
             onChange={v => setProjectReadme(v)} >
           </SimpleMDE>
         </InputBlock>
-        <InputBlock mb={'30px'}>
-          <Flex
-            sx={{
-              justifyContent: "space-between",
-              alignItems: "center"
-            }}
-          >
-            <Flex
-                  sx={{
-                    alignItems: "flex-end",
-                    justifyContent: "center",
-                    border: `1px solid ${theme.colors.borderDark}`,
-                    borderRadius: "2px",
-                    width: "75%",
-                    padding: "0.5rem"
-                  }}
-              >
-                <Flex
-                  sx={{
-                      flexDirection: "column",
-                      marginRight: "1.0rem",
-                      marginTop: "1.0rem",
-                      marginBottom: "0.15rem",
-                      flex: "1"
-                  }}
-                >
-                  <Label >Project Export Cadence Folder</Label>
-                  <Input
-                    value={folderName}
-                    onChange={event => setFolderName(event.target.value)}
-                  />
-                </Flex>
+        <InputBlock mb={'12px'}>
+          <Flex sx={{ placeItems: "flex-end" }}>
+            <Flex sx={{ flexDirection: "column", flex: "1" } }>
+              <Label >Project Export Cadence Folder</Label>
+              <Flex>
+                <Input
+                  value={folderName}
+                  onChange={event => setFolderName(event.target.value)}
+                />
                 <FlowButton
-                  className="violet modal"
+                  className="violet modal attached"
+                  disableHoverZoom={true}
                   onClick={async () => {
                     setProcessing(true);
                     await createZip(folderName, projectName, project);
@@ -195,17 +170,18 @@ const ExportPopup: React.FC<{
                 >
                   Export
                 </FlowButton>
+              </Flex>
             </Flex>
+           
             {processing ? (
               <p>Processing...</p>
-            ) : (
-              <Flex>
-                <FlowButton
-                    className="green modal"
-                    onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
-                > Save/Close
-                </FlowButton>
-              </Flex>
+              ) : (
+              <FlowButton
+                  className="green modal"
+                  Icon={FaCloudUploadAlt}
+                  onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
+              > Save 
+              </FlowButton>
             )}
           </Flex>
         </InputBlock>
