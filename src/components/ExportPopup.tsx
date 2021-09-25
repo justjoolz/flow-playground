@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { uniqueNamesGenerator, adjectives, colors, } from 'unique-names-generator';
-import { FaTimesCircle, FaSyncAlt, FaCloudUploadAlt } from "react-icons/fa";
+import { FaTimesCircle, FaSyncAlt, FaCloudUploadAlt, FaCodeBranch } from "react-icons/fa";
 import { useProject } from 'providers/Project/projectHooks';
 import { default as FlowButton } from 'components/Button';
 import {
@@ -53,6 +53,7 @@ const ExportPopup: React.FC<{
 
   const firstInput = useRef<HTMLInputElement>(null!);
   
+  const isFork = project.parentId && project.id === "LOCAL-project";
   
   useEffect(() => {
     firstInput.current.focus();
@@ -172,17 +173,13 @@ const ExportPopup: React.FC<{
                 </FlowButton>
               </Flex>
             </Flex>
-           
-            {processing ? (
-              <p>Processing...</p>
-              ) : (
-              <FlowButton
-                  className="green modal"
-                  Icon={FaCloudUploadAlt}
-                  onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
-              > Save 
-              </FlowButton>
-            )}
+            <FlowButton
+                className="green modal"
+                Icon={isFork ? FaCodeBranch : FaCloudUploadAlt}
+                onClick={() => mutator.saveProject(project.parentId, projectName, projectDescription, projectReadme)}
+            > { isFork ? "Fork" : "Save"} 
+            </FlowButton>
+
           </Flex>
         </InputBlock>
       </PopupContainer>
