@@ -155,54 +155,61 @@ const ExportPopup: React.FC<{
         </InputBlock>
         <InputBlock mb={'30px'}>
           <Flex
-                sx={{
-                  alignItems: "flex-end",
-                  justifyContent: "center",
-                  border: `1px solid ${theme.colors.borderDark}`,
-                  borderRadius: "2px",
-                  width: "75%",
-                  padding: "0.5rem"
-                }}
-            >
-              <Flex
-                sx={{
-                    flexDirection: "column",
-                    marginRight: "1.0rem",
-                    marginTop: "1.0rem",
-                    marginBottom: "0.15rem",
-                    flex: "1"
-                }}
+            sx={{
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}
+          >
+            <Flex
+                  sx={{
+                    alignItems: "flex-end",
+                    justifyContent: "center",
+                    border: `1px solid ${theme.colors.borderDark}`,
+                    borderRadius: "2px",
+                    width: "75%",
+                    padding: "0.5rem"
+                  }}
               >
-                <Label >Project Export Cadence Folder</Label>
-                <Input
-                  value={folderName}
-                  onChange={event => setFolderName(event.target.value)}
-                />
+                <Flex
+                  sx={{
+                      flexDirection: "column",
+                      marginRight: "1.0rem",
+                      marginTop: "1.0rem",
+                      marginBottom: "0.15rem",
+                      flex: "1"
+                  }}
+                >
+                  <Label >Project Export Cadence Folder</Label>
+                  <Input
+                    value={folderName}
+                    onChange={event => setFolderName(event.target.value)}
+                  />
+                </Flex>
+                <FlowButton
+                  className="violet modal"
+                  onClick={async () => {
+                    setProcessing(true);
+                    await createZip(folderName, projectName, project);
+                    setProcessing(false);
+                    triggerClose(null);
+                  }}
+                >
+                  Export
+                </FlowButton>
+            </Flex>
+            {processing ? (
+              <p>Processing...</p>
+            ) : (
+              <Flex>
+                <FlowButton
+                    className="green modal"
+                    onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
+                > Save/Close
+                </FlowButton>
               </Flex>
-              <FlowButton
-                className="violet modal"
-                onClick={async () => {
-                  setProcessing(true);
-                  await createZip(folderName, projectName, project);
-                  setProcessing(false);
-                  triggerClose(null);
-                }}
-              >
-                Export
-              </FlowButton>
+            )}
           </Flex>
         </InputBlock>
-        {processing ? (
-          <p>Processing...</p>
-        ) : (
-          <Flex>
-            <FlowButton
-                className="green modal"
-                onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
-            > Save! 
-            </FlowButton>
-          </Flex>
-        )}
       </PopupContainer>
       <WhiteOverlay onClick={triggerClose} />
     </FullScreenContainer>
