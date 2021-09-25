@@ -173,7 +173,7 @@ const EditorLayout: React.FC = () => {
                   )}
                 </AnimatePresence>
               </Text>
-              {project && project.publicId && !isSavingCode && (
+              {project && (
                   <ShareButton url={window.location.href} />
               )}
               {project && (

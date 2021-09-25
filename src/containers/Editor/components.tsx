@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Button, Box } from "theme-ui";
+import { Flex, Button } from "theme-ui";
 import styled from "@emotion/styled";
 import { FaShareSquare } from "react-icons/fa";
 import { motion } from "framer-motion";

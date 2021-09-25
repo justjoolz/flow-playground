@@ -195,11 +195,13 @@ const ExportPopup: React.FC<{
         {processing ? (
           <p>Processing...</p>
         ) : (
-          <FlowButton
-            className="green modal"
-            onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
-          > Save! 
-          </FlowButton>
+          <Flex>
+            <FlowButton
+                className="green modal"
+                onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
+            > Save! 
+            </FlowButton>
+          </Flex>
         )}
       </PopupContainer>
       <WhiteOverlay onClick={triggerClose} />
