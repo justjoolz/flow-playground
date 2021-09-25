@@ -8,14 +8,11 @@ import {
   PopupContainer,
   PopupHeader,
   WhiteOverlay,
-  SpaceBetween,
 } from 'components/Common';
 import { Flex, useThemeUI } from "theme-ui";
 
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-
-import { ShareSaveButton } from "../containers/editor/components";
 
 import { createZip } from '../util/generator';
 
@@ -119,7 +116,7 @@ const ExportPopup: React.FC<{
             }}
         >
           <PopupHeader mb="20px" color="#575E89" lineColor="#B4BEFC">
-            Project Details/Settings
+            Project Settings and Readme
           </PopupHeader>
           <FlowButton 
             className="grey" 
@@ -148,7 +145,6 @@ const ExportPopup: React.FC<{
           onChange={event => setProjectDescription(event.target.value)}
           />
         </InputBlock>
-
         <InputBlock mb={'12px'}>
           <Label>Project README.md</Label>
           <SimpleMDE 
@@ -156,80 +152,63 @@ const ExportPopup: React.FC<{
             onChange={v => setProjectReadme(v)} >
           </SimpleMDE>
         </InputBlock>
-        
         <InputBlock mb={'30px'}>
           <Flex
-                sx={{
-                  alignItems: "flex-end",
-                  justifyContent: "center",
-                  border: `1px solid ${theme.colors.borderDark}`,
-                  borderRadius: "2px",
-                  width: "75%",
-                  padding: "0.5rem"
-                }}
-            >
-              <Flex
-                sx={{
-                    flexDirection: "column",
-                    marginRight: "1.0rem",
-                    marginTop: "1.0rem",
-                    marginBottom: "0.15rem",
-                    flex: "1"
-                }}
+            sx={{
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}
+          >
+            <Flex
+                  sx={{
+                    alignItems: "flex-end",
+                    justifyContent: "center",
+                    border: `1px solid ${theme.colors.borderDark}`,
+                    borderRadius: "2px",
+                    width: "75%",
+                    padding: "0.5rem"
+                  }}
               >
-                <Label >Cadence Folder</Label>
-                <Input
-                  value={folderName}
-                  onChange={event => setFolderName(event.target.value)}
-                />
+                <Flex
+                  sx={{
+                      flexDirection: "column",
+                      marginRight: "1.0rem",
+                      marginTop: "1.0rem",
+                      marginBottom: "0.15rem",
+                      flex: "1"
+                  }}
+                >
+                  <Label >Project Export Cadence Folder</Label>
+                  <Input
+                    value={folderName}
+                    onChange={event => setFolderName(event.target.value)}
+                  />
+                </Flex>
+                <FlowButton
+                  className="violet modal"
+                  onClick={async () => {
+                    setProcessing(true);
+                    await createZip(folderName, projectName, project);
+                    setProcessing(false);
+                    triggerClose(null);
+                  }}
+                >
+                  Export
+                </FlowButton>
+            </Flex>
+            {processing ? (
+              <p>Processing...</p>
+            ) : (
+              <Flex>
+                <FlowButton
+                    className="green modal"
+                    onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
+                > Save/Close
+                </FlowButton>
               </Flex>
-              <FlowButton
-                className="violet modal"
-                onClick={async () => {
-                  setProcessing(true);
-                  await createZip(folderName, projectName, project);
-                  setProcessing(false);
-                  triggerClose(null);
-                }}
-              >
-                Export
-              </FlowButton>
+            )}
           </Flex>
         </InputBlock>
-        {processing ? (
-          <p>Processing...</p>
-        ) : (
-          <FlowButton
-            className="green modal"
-            onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
-          > Save! 
-          </FlowButton>
-        )}
-
-        {/* {processing ? (
-          <p>Processing...</p>
-        ) : (
-          <SpaceBetween>
-
-            <FlowButton
-              className="green modal"
-              onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
-            > Save! 
-            </FlowButton>
-
-            {project && (
-                <ShareSaveButton
-                  url={window.location.href}
-                  saveText={project.parentId ? "Fork" : "Save"}
-                  showShare={project.persist}
-                  onSave={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
-                  icon={project.parentId ? FaCodeBranch : FaCloudUploadAlt}
-                />
-              )}
-
-          </SpaceBetween>
-        )} */}
-
       </PopupContainer>
       <WhiteOverlay onClick={triggerClose} />
     </FullScreenContainer>
