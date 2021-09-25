@@ -173,7 +173,7 @@ const EditorLayout: React.FC = () => {
                   )}
                 </AnimatePresence>
               </Text>
-              {project && (
+              {project && project.id != "LOCAL-project" && (
                   <ShareButton url={window.location.href} />
               )}
               {project && (
