@@ -9,7 +9,6 @@ import { Main as MainRoot } from "layout/Main";
 import { Editor as EditorRoot } from "layout/Editor";
 import { Heading } from "layout/Heading";
 import { EntityType, ActiveEditor } from "providers/Project";
-import { useProject } from "providers/Project/projectHooks";
 import { Project } from "api/apollo/generated/graphql";
 
 import debounce from "../../util/debounce";
@@ -65,7 +64,9 @@ const ShareButton: React.FC<{ url: string }> = ({ url }) => {
   return (
     <Flex
       sx={{
-        alignItems: "center"
+        alignItems: "center",
+        marginLeft: "0.1rem",
+        marginRight: "0.75rem"
       }}
     >
       <FlowButton
@@ -78,31 +79,6 @@ const ShareButton: React.FC<{ url: string }> = ({ url }) => {
         {!isCopied ? "Share" : "Link Copied!"}
       </FlowButton>
     </Flex>
-  );
-};
-
-const ShareSaveButton: React.FC<{
-  url: string;
-  saveText: string;
-  showShare: boolean;
-  onSave: () => void;
-  icon: any;
-}> = ({ url, saveText, showShare, onSave, icon }) => {
-  const { isSavingCode } = useProject();
-  return (
-    <Box sx={{ marginRight: "0.5rem" }}>
-      {showShare ? (
-        <ShareButton url={url} />
-      ) : (
-        <FlowButton
-          onClick={() => onSave()}
-          disabled={isSavingCode}
-          Icon={icon}
-        >
-          {saveText}
-        </FlowButton>
-      )}
-    </Box>
   );
 };
 
@@ -252,6 +228,6 @@ export {
   Header,
   NavButton,
   Nav,
-  ShareSaveButton,
+  ShareButton,
   AnimatedText
 };

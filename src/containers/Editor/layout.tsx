@@ -10,6 +10,7 @@ import Examples from "components/Examples";
 import ExportPopup from "components/ExportPopup";
 import Sidebar from "components/Sidebar";
 import { IconCadence } from "components/Icons";
+import { ShareButton } from "containers/Editor/components"
 
 import Mixpanel from "../../util/mixpanel";
 
@@ -172,7 +173,9 @@ const EditorLayout: React.FC = () => {
                   )}
                 </AnimatePresence>
               </Text>
-            
+              {project && project.publicId && !isSavingCode && (
+                  <ShareButton url={window.location.href} />
+              )}
               {project && (
                 <>
                 <FlowButton
