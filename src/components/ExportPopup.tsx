@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { uniqueNamesGenerator, adjectives, colors, } from 'unique-names-generator';
 import { FaCloudUploadAlt, FaSyncAlt, FaCodeBranch } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
+import { FaTimes } from "react-icons/fa";
 import { useProject } from 'providers/Project/projectHooks';
 import { default as FlowButton } from 'components/Button';
 import {
@@ -120,14 +121,15 @@ const ExportPopup: React.FC<{
             }}
         >
           <PopupHeader mb="20px" color="#575E89" lineColor="#B4BEFC">
-            Project Details/Settings
+            Project Settings and Readme
           </PopupHeader>
             <FlowButton 
                 className="grey icon-button" 
                 onClick={triggerClose}
-                Icon={GrClose}
+                Icon={FaTimes}
                 disableHoverZoom={true}
                 isIconButton={true}
+                iconSize={24}
             />
         </Flex>
         <InputBlock mb={'12px'}>
@@ -178,7 +180,7 @@ const ExportPopup: React.FC<{
                     flex: "1"
                 }}
               >
-                <Label >Cadence Folder</Label>
+                <Label >Project Export Cadence Folder</Label>
                 <Input
                   value={folderName}
                   onChange={event => setFolderName(event.target.value)}
