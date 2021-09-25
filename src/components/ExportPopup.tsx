@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { uniqueNamesGenerator, adjectives, colors, } from 'unique-names-generator';
-import { FaCloudUploadAlt, FaSyncAlt, FaCodeBranch } from "react-icons/fa";
-import { GrClose } from "react-icons/gr";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaSyncAlt } from "react-icons/fa";
 import { useProject } from 'providers/Project/projectHooks';
 import { default as FlowButton } from 'components/Button';
 import {
@@ -10,14 +8,11 @@ import {
   PopupContainer,
   PopupHeader,
   WhiteOverlay,
-  SpaceBetween,
 } from 'components/Common';
 import { Flex, useThemeUI } from "theme-ui";
 
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-
-import { ShareSaveButton } from "../containers/editor/components";
 
 import { createZip } from '../util/generator';
 
@@ -151,7 +146,6 @@ const ExportPopup: React.FC<{
           onChange={event => setProjectDescription(event.target.value)}
           />
         </InputBlock>
-
         <InputBlock mb={'12px'}>
           <Label>Project README.md</Label>
           <SimpleMDE 
@@ -159,7 +153,6 @@ const ExportPopup: React.FC<{
             onChange={v => setProjectReadme(v)} >
           </SimpleMDE>
         </InputBlock>
-        
         <InputBlock mb={'30px'}>
           <Flex
                 sx={{
@@ -202,37 +195,14 @@ const ExportPopup: React.FC<{
         {processing ? (
           <p>Processing...</p>
         ) : (
-          <FlowButton
-            className="green modal"
-            onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
-          > Save! 
-          </FlowButton>
-        )}
-
-        {/* {processing ? (
-          <p>Processing...</p>
-        ) : (
-          <SpaceBetween>
-
+          <Flex>
             <FlowButton
-              className="green modal"
-              onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
+                className="green modal"
+                onClick={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
             > Save! 
             </FlowButton>
-
-            {project && (
-                <ShareSaveButton
-                  url={window.location.href}
-                  saveText={project.parentId ? "Fork" : "Save"}
-                  showShare={project.persist}
-                  onSave={() => mutator.saveProject(!!project.parentId, projectName, projectDescription, projectReadme)}
-                  icon={project.parentId ? FaCodeBranch : FaCloudUploadAlt}
-                />
-              )}
-
-          </SpaceBetween>
-        )} */}
-
+          </Flex>
+        )}
       </PopupContainer>
       <WhiteOverlay onClick={triggerClose} />
     </FullScreenContainer>
