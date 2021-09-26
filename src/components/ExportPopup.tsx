@@ -9,7 +9,7 @@ import {
   PopupHeader,
   WhiteOverlay,
 } from 'components/Common';
-import { Flex, useThemeUI } from "theme-ui";
+import { Flex } from "theme-ui";
 
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
@@ -41,9 +41,12 @@ const ExportPopup: React.FC<{
   
   const [projectName, setProjectName] = useState(project.title ? project.title : generateProjectName());
   const [projectDescription, setProjectDescription] = useState(project.description)
-  const [projectReadme, setProjectReadme] = useState(project.readme)
+  const [projectReadme, setProjectReadme] = useState<string | undefined>(project.readme)
+
   
   const [processing, setProcessing] = useState(false);
+  console.log('"processing" state not used', processing);
+  
   const [folderName, setFolderName] = useState('cadence');
 
   const regenerateProjectName = () => {
