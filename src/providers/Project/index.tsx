@@ -113,7 +113,6 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
   const description = project ? project.description : null;
   const readme = project ? project.readme : null;
 
-  console.log("j00lz ~ providers/index", project)
   const mutator = new ProjectMutator(client, projectID, isLocal, title, description, readme);
 
   let timeout: any;
