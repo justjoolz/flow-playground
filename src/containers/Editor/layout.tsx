@@ -182,7 +182,7 @@ const EditorLayout: React.FC = () => {
                   className="green"
                   onClick={() => toggleShowExport(true)}
                   Icon={FaCog}
-                >Project Settings
+                >Project 
                 </FlowButton>
                 </>
               )}

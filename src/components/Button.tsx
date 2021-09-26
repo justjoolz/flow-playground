@@ -49,6 +49,13 @@ const StyledButton: React.FC<StyledButtonProps> = styled(ThemedButton)`
     width: 100px;
     font-size: 16px;
     font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  &.attached{
+    border-radius: 0px 8px 8px 0px;
+    margin-bottom: 5px;
+    margin-right: 10px;
   }
 
   &.icon-button{
