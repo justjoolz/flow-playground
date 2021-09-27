@@ -165,6 +165,7 @@ const ExportPopup: React.FC<{
                 <FlowButton
                   className="violet modal attached"
                   disableHoverZoom={true}
+                  disabled={processing ? true : false}
                   onClick={async () => {
                     setProcessing(true);
                     await createZip(folderName, projectName, project);
@@ -172,7 +173,7 @@ const ExportPopup: React.FC<{
                     triggerClose(null);
                   }}
                 >
-                  Export
+                  {processing ? "processing.." : "Export"}
                 </FlowButton>
               </Flex>
             </Flex>
