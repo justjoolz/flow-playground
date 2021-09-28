@@ -8,6 +8,7 @@ import {
   PopupContainer,
   PopupHeader,
   WhiteOverlay,
+  MdeContainer
 } from 'components/Common';
 import { Flex } from "theme-ui";
 
@@ -148,10 +149,12 @@ const ExportPopup: React.FC<{
         </InputBlock>
         <InputBlock mb={'12px'}>
           <Label>Project README.md</Label>
-          <SimpleMDE 
-            value={projectReadme}
-            onChange={v => setProjectReadme(v)} >
-          </SimpleMDE>
+          <MdeContainer>
+            <SimpleMDE 
+              value={projectReadme}
+              onChange={v => setProjectReadme(v)} >
+            </SimpleMDE>
+          </MdeContainer>
         </InputBlock>
         <InputBlock mb={'12px'}>
           <Flex sx={{ placeItems: "flex-end" }}>
