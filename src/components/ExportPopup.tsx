@@ -43,7 +43,6 @@ const ExportPopup: React.FC<{
 
   
   const [processing, setProcessing] = useState(false);
-  console.log('"processing" state not used', processing);
   
   const [folderName, setFolderName] = useState('cadence');
 
