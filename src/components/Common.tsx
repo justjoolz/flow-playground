@@ -5,53 +5,6 @@ interface FullScreenContainerProps {
   elevation?: number;
 }
 
-export const MdeContainer = styled.div`
-  h1 {
-    font-size: 200%;
-    line-height: 200%;
-  }
-
-  h2 {
-    font-size: 160%;
-    line-height: 160%;
-  }
-
-  h3 {
-    font-size: 125%;
-    line-height: 125%;
-  }
-
-  h4 {
-    font-size: 110%;
-    line-height: 110%;
-  }
-
-  strong {
-    font-weight: bold;
-  }
-
-  em {
-    font-style: italic;
-  }
-
-  blockquote {
-    background: #f9f9f9;
-    border-left: 10px solid #ccc;
-    margin: 1.5em 10px;
-    padding: .5em 10px;
-    font-style: italic;
-  }
-
-  ul li {
-    /* https://stackoverflow.com/questions/32039846/can-i-use-css-to-add-a-bullet-point-to-any-element */
-    display: list-item;          /* This has to be "list-item"                                               */
-    list-style-type: disc;       /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
-    list-style-position: inside; /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position */
-  }
-
-
-`;
-
 export const FullScreenContainer = styled(motion.div)<FullScreenContainerProps>`
   display: flex;
   align-items: center;

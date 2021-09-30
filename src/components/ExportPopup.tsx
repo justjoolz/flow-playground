@@ -8,12 +8,9 @@ import {
   PopupContainer,
   PopupHeader,
   WhiteOverlay,
-  MdeContainer
 } from 'components/Common';
+import { MdeEditor } from './MdeEditor';
 import { Flex } from "theme-ui";
-
-import SimpleMDE from "react-simplemde-editor";
-import "easymde/dist/easymde.min.css";
 
 import { createZip } from '../util/generator';
 
@@ -149,12 +146,10 @@ const ExportPopup: React.FC<{
         </InputBlock>
         <InputBlock mb={'12px'}>
           <Label>Project README.md</Label>
-          <MdeContainer>
-            <SimpleMDE 
+          <MdeEditor 
               value={projectReadme}
-              onChange={v => setProjectReadme(v)} >
-            </SimpleMDE>
-          </MdeContainer>
+              onChange={setProjectReadme}
+          />
         </InputBlock>
         <InputBlock mb={'12px'}>
           <Flex sx={{ placeItems: "flex-end" }}>
