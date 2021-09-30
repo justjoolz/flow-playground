@@ -129,7 +129,6 @@ const EditorLayout: React.FC = () => {
 							</>
             )}
           </Flex>
-          {/* <Text>New Project</Text> */}
           <Nav>
             <Flex
               sx={{
