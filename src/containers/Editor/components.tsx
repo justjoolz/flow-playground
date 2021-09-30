@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Button, Box } from "theme-ui";
+import { Flex, Button, Box, Text } from "theme-ui";
 import styled from "@emotion/styled";
 import { FaShareSquare } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -151,6 +151,8 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
   project,
   active
 }) => {
+    console.log("ACTIVE", active);
+    
   const [code, setCode] = useState("");
   const [activeId, setActiveId] = useState(null);
 
@@ -172,21 +174,34 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
       }
       return project.accounts[index].draftCode
     }
+  
+  const isReadmeEditor = active.type === 4
+  const isCodeEditor = !isReadmeEditor
 
   return (
     <MainRoot>
-      <EditorTitle type={active.type} />
-      <EditorRoot>
-        <CadenceEditor
-          type={active.type}
-          activeId={activeId}
-          code={code}
-          mount="cadenceEditor"
-          onChange={(code: string, _: any) => onCodeChange(code)}
-          getCode={getCode}
-        />
-      </EditorRoot>
-      <BottomBarContainer active={active} />
+      {isReadmeEditor && (
+        <>
+          <EditorTitle type={active.type} />
+          <Text>PLACEHOLDER FOR README COMPONENT</Text>
+        </>
+      )}
+      {isCodeEditor &&
+          <>
+            <EditorTitle type={active.type} />
+            <EditorRoot>
+              <CadenceEditor
+                type={active.type}
+                activeId={activeId}
+                code={code}
+                mount="cadenceEditor"
+                onChange={(code: string, _: any) => onCodeChange(code)}
+                getCode={getCode}
+              />
+            </EditorRoot>
+            <BottomBarContainer active={active} />
+          </>
+      }
     </MainRoot>
   );
 };
@@ -201,8 +216,9 @@ const EditorTitle: React.FC<EditorTitleProps> = ({ type }) => {
       {type === EntityType.Account && "Contract"}
       {type === EntityType.TransactionTemplate && "Transaction Template"}
       {type === EntityType.ScriptTemplate && "Script Template"}
+      {type === EntityType.Readme && "Readme"}
 
-      <Version/>
+      {type !== EntityType.Readme && <Version/>}
     </Heading>
   );
 };
