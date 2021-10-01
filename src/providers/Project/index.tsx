@@ -12,6 +12,7 @@ export enum EntityType {
   Account = 1,
   TransactionTemplate,
   ScriptTemplate,
+  Readme,
 }
 
 export type ActiveEditor = {
@@ -278,6 +279,13 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
           onChange: (code: any, title: string) =>
             updateActiveScriptTemplate(code, title),
         };
+      case EntityType.Readme:
+        return {
+          type: active.type,
+          index: active.index,
+          onChange: () =>
+            console.log("PLACEHOLDER FOR README ENTITY TYPE CHANGE"),
+        }
     }
   };
 
@@ -323,6 +331,7 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
         firstItemId = project.scriptTemplates[0].id;
         break;
       case 'account':
+      case 'readme':
       default:
         setActive({
           type: EntityType.Account,
@@ -409,6 +418,35 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
       }
       break;
     }
+
+
+    case 'readme': {
+      if (id && id !== '') {
+        const foundIndex = project.accounts.findIndex(
+          (template) => template.id === id,
+        );
+        if (foundIndex > 0) {
+          templateIndex = foundIndex;
+        }
+      }
+      const sameType = active.type == EntityType.Readme;
+      const sameIndex = active.index == templateIndex;
+
+      if (!sameIndex || !sameType || initialLoad) {
+        setInitialLoad(false);
+        setActive({
+          type: EntityType.Readme,
+          index: templateIndex,
+        });
+        // const templateId = project.accounts[templateIndex].id;
+        return <Redirect to={`/${project.id}?type=readme`} />;
+      }
+      break;
+    }
+
+
+
+
     default:
       return null;
   }
