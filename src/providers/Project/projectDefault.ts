@@ -5,6 +5,7 @@ import {
   ScriptTemplate
 } from "api/apollo/generated/graphql";
 import { strToSeed, uuid } from "../../util/rng";
+import { uniqueNamesGenerator, adjectives, colors, } from 'unique-names-generator';
 
 const DEFAULT_ACCOUNT_1 = `// HelloWorld.cdc
 //
@@ -195,13 +196,23 @@ export function createLocalProject(
     }
   );
 
+  const generateProjectName = () => {
+    const prefix: string = uniqueNamesGenerator({
+      dictionaries: [colors, adjectives],
+      separator: '-',
+      length: 2,
+    })
+
+    return `${prefix}-playground`
+  }
+
   return {
     __typename: "Project",
     id: "LOCAL-project",
     publicId: "",
     persist: false,
     mutable: false,
-    title: "Project Default Title",
+    title: generateProjectName(),
     description: "Project Default Description",
     readme: "Project Default README",
     seed: seed,
