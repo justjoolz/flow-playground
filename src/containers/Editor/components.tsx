@@ -21,6 +21,11 @@ import AccountBottomBar from "components/AccountBottomBar";
 import TransactionBottomBar from "components/TransactionBottomBar";
 import ScriptBottomBar from "components/ScriptBottomBar";
 import { Version } from "components/CadenceVersion";
+import {
+  Input,
+  InputBlock,
+  Label,
+} from 'components/Arguments/SingleArgument/styles';
 
 const Header: React.FC = ({ children }) => {
   return (
@@ -183,10 +188,36 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
   return (
     <MainRoot>
       {isReadmeEditor && (
-        <>
-          <EditorTitle type={active.type} />
-          <Text>PLACEHOLDER FOR README COMPONENT</Text>
-        </>
+          project.parentId ?
+            <EditorRoot>
+                <EditorTitle type={active.type} />
+                <Text>{project.title}</Text>
+                <Text>{project.description}</Text>
+                <Text>{project.readme}</Text>
+            </EditorRoot>
+                :
+            <EditorRoot>
+                <EditorTitle type={active.type} />
+                <InputBlock mb={'12px'}>
+                    <Label>Project Title</Label>
+                    <Input
+                        value={project.title}
+                    />
+                </InputBlock>
+                <InputBlock mb={'12px'}>
+                    <Label>Project Description</Label>
+                    <Input
+                        value={project.description}
+                    />
+                </InputBlock>
+                <InputBlock mb={'12px'}>
+                    <Label>Project README</Label>
+                    <Input
+                        value={project.readme}
+                    />
+                </InputBlock>
+            </EditorRoot>
+
       )}
       {isCodeEditor &&
           <>
