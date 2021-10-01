@@ -151,7 +151,9 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
   project,
   active
 }) => {
-    console.log("ACTIVE", active);
+    // console.log("ACTIVE", active);
+    console.log("PROJECT", project);
+    
     
   const [code, setCode] = useState("");
   const [activeId, setActiveId] = useState(null);
