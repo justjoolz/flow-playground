@@ -209,7 +209,7 @@ const EditorLayout: React.FC = () => {
           toggleShowExamples(false);
         }}
       />
-      <ExportPopup visible={showExport} triggerClose={()=>{
+      <ExportPopup visible={showExport} projectTitle={project.title} triggerClose={()=>{
         toggleShowExport(false)
       }}/>
     </>

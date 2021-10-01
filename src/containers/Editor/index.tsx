@@ -7,7 +7,11 @@ import EditorLayout from "./layout";
 import { isUUUID, getParams, scriptTypes } from "../../util/url";
 
 const Playground: any = (props: any) => {
+<<<<<<< HEAD
     console.log("PROPS:", props);
+=======
+  console.log("PROPS:", props);
+>>>>>>> UI-updatesV2_wip
     
   const params = getParams(props.location.search)
   console.log("PARAMS:", params);
@@ -17,10 +21,15 @@ const Playground: any = (props: any) => {
   
 
   const isLocalProject = projectId === "local";
+  console.log("IS LOCAL PROJECT:", isLocalProject);
+  
   const correctUUID = isUUUID(projectId);
   console.log("CORRECT UUID:", correctUUID);
   
+<<<<<<< HEAD
 
+=======
+>>>>>>> UI-updatesV2_wip
   const wrongProjectUUID = !correctUUID && !isLocalProject
   console.log("WRONG PROJECT UUID:", wrongProjectUUID);
   

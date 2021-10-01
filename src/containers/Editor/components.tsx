@@ -151,7 +151,13 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
   project,
   active
 }) => {
+<<<<<<< HEAD
     console.log("ACTIVE", active);
+=======
+    // console.log("ACTIVE", active);
+    console.log("PROJECT", project);
+    
+>>>>>>> UI-updatesV2_wip
     
   const [code, setCode] = useState("");
   const [activeId, setActiveId] = useState(null);
