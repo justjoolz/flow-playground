@@ -21,6 +21,7 @@ import AccountBottomBar from "components/AccountBottomBar";
 import TransactionBottomBar from "components/TransactionBottomBar";
 import ScriptBottomBar from "components/ScriptBottomBar";
 import { Version } from "components/CadenceVersion";
+import { MdeEditor } from '../../components/MdeEditor';
 import {
   Input,
   InputBlock,
@@ -158,6 +159,10 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
 }) => {
     // console.log("ACTIVE", active);
     console.log("PROJECT", project);
+
+  // const [projectName, setProjectName] = useState<string | undefined>(project.title);
+  // const [projectDescription, setProjectDescription] = useState<string | undefined>(project.description)
+  const [projectReadme, setProjectReadme] = useState<string | undefined>(project.readme)
     
     
   const [code, setCode] = useState("");
@@ -210,13 +215,11 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                         value={project.description}
                     />
                 </InputBlock>
-                <InputBlock mb={'12px'}>
-                    <Label>Project README</Label>
-                    <Input
-                        value={project.readme}
-                    />
-                </InputBlock>
-            </EditorRoot>
+                <MdeEditor
+                  value={projectReadme}
+                  onChange={setProjectReadme}
+                />
+                </EditorRoot>
 
       )}
       {isCodeEditor &&
