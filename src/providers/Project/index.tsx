@@ -310,8 +310,8 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
         return {
           type: active.type,
           index: active.index,
-          onChange: () =>
-            console.log("PLACEHOLDER FOR README ENTITY TYPE CHANGE"),
+          onChange: (title: string, description: string, readme:string) =>
+            updateProject(title, description, readme)
         }
     }
   };

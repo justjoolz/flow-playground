@@ -178,7 +178,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
     }
   }, [isLoading, active, project]);
 
-  const onCodeChange = debounce(active.onChange);
+  const onEditorChange = debounce(active.onChange);
 
   function getCode(index: number): string | undefined {
       if (index < 0 || index >= project.accounts.length) {
@@ -231,7 +231,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                 activeId={activeId}
                 code={code}
                 mount="cadenceEditor"
-                onChange={(code: string, _: any) => onCodeChange(code)}
+                onChange={(code: string, _: any) => onEditorChange(code)}
                 getCode={getCode}
               />
             </EditorRoot>
