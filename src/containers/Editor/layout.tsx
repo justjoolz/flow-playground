@@ -40,6 +40,8 @@ const EditorLayout: React.FC = () => {
   const [projectIsPlayground, setIsPlayground] = useState(false);
 
   const { project, mutator, isSavingCode, isLoading, active } = useProject();
+  console.log("PROJECT OBJ FORM LAYOUT", project);
+  
 
   useEffect(() => {
     if (project && project.id) {
@@ -179,7 +181,7 @@ const EditorLayout: React.FC = () => {
                   url={window.location.href}
                   saveText={project.parentId ? "Fork" : "Save"}
                   showShare={project.persist}
-                  onSave={() => mutator.saveProject(!!project.parentId)}
+                  onSave={() => mutator.saveProject(!!project.parentId, project.title, project.description, project.readme)}
                   icon={project.parentId ? FaCodeBranch : FaCloudUploadAlt}
                 />
               )}

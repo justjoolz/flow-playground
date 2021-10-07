@@ -139,6 +139,9 @@ export function createDefaultProject(): Project {
   return createLocalProject(
     null,
     strToSeed(uuid()),
+    "Default project title ~ Hello World!",
+    "Hello world is an affirmation",
+    "Readme, and you will understand",
     DEFAULT_ACCOUNTS,
     [{ title: "Transaction", code: DEFAULT_TRANSACTION }],
     [{ title: "Script" , code :DEFAULT_SCRIPT }]
@@ -153,6 +156,9 @@ type ScriptDetails = {
 export function createLocalProject(
   parentId: string | null,
   seed: number,
+  title: string,
+  description: string,
+  readme: string,
   accounts: Array<string>,
   transactionTemplates: Array<ScriptDetails>,
   scriptTemplates: Array<ScriptDetails>
@@ -162,7 +168,9 @@ export function createLocalProject(
       __typename: "Account",
       id: `LOCAL-account-${i}`,
       address: `000000000000000000000000000000000000000${i + 1}`,
-      title: "",
+      title: title,
+      description: description,
+      readme: readme,
       draftCode: script,
       deployedCode: "",
       deployedContracts: [],
@@ -213,8 +221,8 @@ export function createLocalProject(
     persist: false,
     mutable: false,
     title: generateProjectName(),
-    description: "Project Default Description",
-    readme: "Project Default README",
+    description: description,
+    readme: readme,
     seed: seed,
     parentId: parentId,
     accounts: accountEntities,
