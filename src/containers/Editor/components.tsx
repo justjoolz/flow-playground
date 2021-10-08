@@ -196,19 +196,26 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
   const isReadmeEditor = active.type === 4
   const isCodeEditor = !isReadmeEditor
 
+  const ReadmeContainer = styled.div<{ }>`
+    margin: 0.2rem 1rem 0rem 1rem;
+  `;
+
   return (
     <MainRoot>
       {isReadmeEditor && (
           ( project.parentId && !project.persist) ?
             <EditorRoot>
-                <EditorTitle type={active.type} />
+              <EditorTitle type={active.type} />
+              <ReadmeContainer>
                 <Text>{title}</Text>
                 <Text>{description}</Text>
                 <Text>{readme}</Text>
+              </ReadmeContainer>
             </EditorRoot>
                 :
             <EditorRoot>
-                <EditorTitle type={active.type} />
+              <EditorTitle type={active.type} />
+              <ReadmeContainer>
                 <InputBlock mb={'12px'}>
                     <Label>Project Title</Label>
                     <Input
@@ -236,7 +243,8 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                     updateProject()
                   }}
                 />
-                </EditorRoot>
+              </ReadmeContainer>
+            </EditorRoot>
 
       )}
       {isCodeEditor &&
