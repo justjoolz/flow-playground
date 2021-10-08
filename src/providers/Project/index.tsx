@@ -311,7 +311,7 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
           type: active.type,
           index: active.index,
           onChange: ((title: string, description: string, readme:string) => {
-              updateProject(title, description, readme)
+              if (project.persist) updateProject(title, description, readme)
           })
         }
     }

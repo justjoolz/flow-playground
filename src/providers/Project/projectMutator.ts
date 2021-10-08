@@ -55,7 +55,8 @@ export default class ProjectMutator {
     const { project: localProject } = this.client.readQuery({
       query: GET_LOCAL_PROJECT,
     });
-    // console.log("LOCAL PROJECT!!!!!!!!!!", localProject);
+
+    console.log("localProject", localProject)
 
     const parentId = localProject.parentId;
     const accounts = localProject.accounts.map((acc: Account) => acc.draftCode);
@@ -84,7 +85,6 @@ export default class ProjectMutator {
         scriptTemplates: scriptTemplates,
       },
     });
-    console.log("DATA FROM CREATE_PROJECT MUATIONS", data);
     
 
     const project = data.project;
@@ -127,7 +127,7 @@ export default class ProjectMutator {
       Mixpanel.track('Project saved', { projectId: this.projectId });
     }
 
-    navigate(`/${this.projectId}`, { replace: true });
+    navigate(`/${this.projectId}?type=readme&id=0`, { replace: true });
   }
 
   async updateAccountDraftCode(account: Account, code: string) {

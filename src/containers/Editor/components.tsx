@@ -176,14 +176,15 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
       setActiveId(null);
     } else {
       setCode(getActiveCode(project, active));
-      setTitle(project.title);
-      setDescription(project.description);
+      setTitle(title);
+      setDescription(description);
+      setReadme(readme);
       setActiveId(getActiveId(project, active));
     }
   }, [isLoading, active, project]);
 
   const onEditorChange = debounce(active.onChange);
-  const updateProject = () => onEditorChange(title, description, readme)
+  const updateProject = () => { project.title = title; project.description = description; project.readme = readme; onEditorChange(title, description, readme); }
 
   function getCode(index: number): string | undefined {
       if (index < 0 || index >= project.accounts.length) {
@@ -197,8 +198,9 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
 
   return (
     <MainRoot>
+     
       {isReadmeEditor && (
-          project.parentId ?
+          ( project.parentId && !project.persist) ?
             <EditorRoot>
                 <EditorTitle type={active.type} />
                 <Text>{title}</Text>
@@ -214,7 +216,8 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                         value={title}
                         onChange={event => {
                           setTitle(event.target.value)
-                          updateProject()
+                          onEditorChange()
+                          // updateProject()
                         }}
                     />
                 </InputBlock>
@@ -229,7 +232,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                     />
                 </InputBlock>
                 <MdeEditor
-                  value={project.readme}
+                  value={readme}
                   onChange={(readme: string) => {
                     setReadme(readme)
                     updateProject()
