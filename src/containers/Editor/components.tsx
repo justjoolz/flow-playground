@@ -160,9 +160,9 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
     // console.log("ACTIVE", active);
     console.log("PROJECT", project);
 
-  // const [projectName, setProjectName] = useState<string | undefined>(project.title);
-  // const [projectDescription, setProjectDescription] = useState<string | undefined>(project.description)
-  const [projectReadme, setProjectReadme] = useState<string | undefined>(project.readme)
+  const [title, setTitle] = useState<string | undefined>(project.title);
+  const [description, setDescription] = useState<string | undefined>(project.description)
+  const [readme, setReadme] = useState<string | undefined>(project.readme)
     
     
   const [code, setCode] = useState("");
@@ -171,14 +171,19 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
   useEffect(() => {
     if (isLoading) {
       setCode("");
+      setTitle("");
+      setDescription("");
       setActiveId(null);
     } else {
       setCode(getActiveCode(project, active));
+      setTitle(project.title);
+      setDescription(project.description);
       setActiveId(getActiveId(project, active));
     }
   }, [isLoading, active, project]);
 
   const onEditorChange = debounce(active.onChange);
+  const updateProject = () => onEditorChange(title, description, readme)
 
   function getCode(index: number): string | undefined {
       if (index < 0 || index >= project.accounts.length) {
@@ -196,9 +201,9 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
           project.parentId ?
             <EditorRoot>
                 <EditorTitle type={active.type} />
-                <Text>{project.title}</Text>
-                <Text>{project.description}</Text>
-                <Text>{project.readme}</Text>
+                <Text>{title}</Text>
+                <Text>{description}</Text>
+                <Text>{readme}</Text>
             </EditorRoot>
                 :
             <EditorRoot>
@@ -206,18 +211,30 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                 <InputBlock mb={'12px'}>
                     <Label>Project Title</Label>
                     <Input
-                        value={project.title}
+                        value={title}
+                        onChange={event => {
+                          setTitle(event.target.value)
+                          updateProject()
+                        }}
                     />
                 </InputBlock>
                 <InputBlock mb={'12px'}>
                     <Label>Project Description</Label>
                     <Input
-                        value={project.description}
+                        value={description}
+                        onChange={event => {
+                          setDescription(event.target.value)
+                          updateProject()
+                        }}
                     />
                 </InputBlock>
                 <MdeEditor
-                  value={projectReadme}
-                  onChange={setProjectReadme}
+                  value={project.readme}
+                  onChange={(readme: string) => {
+                    // onEditorChange("I AM TITLE", "I AM DESCRIPTION", readme)
+                    setReadme(readme)
+                    updateProject()
+                  }}
                 />
                 </EditorRoot>
 

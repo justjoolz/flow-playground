@@ -18,7 +18,7 @@ export enum EntityType {
 export type ActiveEditor = {
   type: EntityType;
   index: number;
-  onChange: (code: string, title: string) => void;
+  onChange: (code: string, title: string, description: string, readme: string) => void;
 };
 
 export interface ProjectContextValue {
@@ -310,8 +310,9 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
         return {
           type: active.type,
           index: active.index,
-          onChange: (title: string, description: string, readme:string) =>
-            updateProject(title, description, readme)
+          onChange: ((title: string, description: string, readme:string) => {
+              updateProject(title, description, readme)
+          })
         }
     }
   };
