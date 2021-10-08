@@ -176,9 +176,9 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
       setActiveId(null);
     } else {
       setCode(getActiveCode(project, active));
-      setTitle(project.title);
-      setDescription(project.description);
-      setReadme(project.readme);
+      setTitle(title);
+      setDescription(description);
+      setReadme(readme);
       setActiveId(getActiveId(project, active));
     }
   }, [isLoading, active, project]);
