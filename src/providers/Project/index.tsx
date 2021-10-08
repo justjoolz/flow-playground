@@ -466,7 +466,6 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
           type: EntityType.Readme,
           index: templateIndex,
         });
-        // const templateId = project.accounts[templateIndex].id;
         return <Redirect to={`/${project.id}?type=readme`} />;
       }
       break;

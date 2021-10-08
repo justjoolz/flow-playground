@@ -231,7 +231,6 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                 <MdeEditor
                   value={project.readme}
                   onChange={(readme: string) => {
-                    // onEditorChange("I AM TITLE", "I AM DESCRIPTION", readme)
                     setReadme(readme)
                     updateProject()
                   }}
