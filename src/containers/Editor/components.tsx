@@ -176,9 +176,9 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
       setActiveId(null);
     } else {
       setCode(getActiveCode(project, active));
-      setTitle(title);
-      setDescription(description);
-      setReadme(readme);
+      setTitle(project.title);
+      setDescription(project.description);
+      setReadme(project.readme);
       setActiveId(getActiveId(project, active));
     }
   }, [isLoading, active, project]);
@@ -198,7 +198,6 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
 
   return (
     <MainRoot>
-     
       {isReadmeEditor && (
           ( project.parentId && !project.persist) ?
             <EditorRoot>
@@ -216,8 +215,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                         value={title}
                         onChange={event => {
                           setTitle(event.target.value)
-                          onEditorChange()
-                          // updateProject()
+                          updateProject()
                         }}
                     />
                 </InputBlock>

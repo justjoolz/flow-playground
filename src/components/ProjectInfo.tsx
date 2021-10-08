@@ -9,10 +9,7 @@ import { isUUUID} from "../util/url";
 const ProjectInfo: React.FC = () => {
   const {
     project,
-    active,
   } = useProject();
-  console.log("PROJECT INFO, PROJECT:", project);
-  console.log("PROJECT INFO, ACTIVE:", active);
 
   const [projectInfoSelected, setProjectInfoSelected] = useState< boolean | null>(false)
 
