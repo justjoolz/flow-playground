@@ -85,17 +85,11 @@ const ExportPopup: React.FC<{
         <PopupHeader mb="20px" color="#575E89" lineColor="#B4BEFC">
           Export Project
         </PopupHeader>
-        <InputBlock mb={'12px'}>
-          <Label>Project Name</Label>
-          <Input
-            ref={firstInput}
-            value={projectTitle}
-          />
-        </InputBlock>
         <InputBlock mb={'30px'}>
           <Label>Cadence Folder</Label>
           <Input
-            value={folderName}
+            ref={firstInput}
+            defaultValue={folderName}
             onChange={event => setFolderName(event.target.value)}
           />
         </InputBlock>
