@@ -56,7 +56,6 @@ export default class ProjectMutator {
       query: GET_LOCAL_PROJECT,
     });
 
-    console.log("localProject", localProject)
 
     const parentId = localProject.parentId;
     const accounts = localProject.accounts.map((acc: Account) => acc.draftCode);
