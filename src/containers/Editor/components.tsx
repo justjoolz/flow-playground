@@ -152,6 +152,10 @@ function getActiveId(project: Project, active: ActiveEditor): string {
   }
 }
 
+const ReadmeContainer = styled.div`
+    margin: 0.2rem 1rem 0rem 1rem;
+  `;
+
 const EditorContainer: React.FC<EditorContainerProps> = ({
   isLoading,
   project,
@@ -184,7 +188,10 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
   }, [isLoading, active, project]);
 
   const onEditorChange = debounce(active.onChange);
-  const updateProject = () => { project.title = title; project.description = description; project.readme = readme; onEditorChange(title, description, readme); }
+  const updateProject = () => { 
+    project.title = title; project.description = description; project.readme = readme; 
+    onEditorChange(title, description, readme); 
+  }
 
   function getCode(index: number): string | undefined {
       if (index < 0 || index >= project.accounts.length) {
@@ -195,10 +202,6 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
   
   const isReadmeEditor = active.type === 4
   const isCodeEditor = !isReadmeEditor
-
-  const ReadmeContainer = styled.div<{ }>`
-    margin: 0.2rem 1rem 0rem 1rem;
-  `;
 
   return (
     <MainRoot>
