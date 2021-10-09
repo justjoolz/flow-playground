@@ -171,8 +171,6 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
   project,
   active
 }) => {
-    // console.log("ACTIVE", active);
-    console.log("PROJECT", project);
 
   const [title, setTitle] = useState<string | undefined>(project.title);
   const [description, setDescription] = useState<string | undefined>(project.description)
