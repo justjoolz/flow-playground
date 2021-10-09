@@ -27,6 +27,7 @@ import {
   InputBlock,
   Label,
 } from 'components/Arguments/SingleArgument/styles';
+import { Markdown } from "../../components/Markdown";
 
 const Header: React.FC = ({ children }) => {
   return (
@@ -155,6 +156,15 @@ function getActiveId(project: Project, active: ActiveEditor): string {
 const ReadmeContainer = styled.div`
     margin: 0.2rem 1rem 0rem 1rem;
   `;
+const ProjectHeading = styled.div`
+  font-size: 2rem;
+  margin: 1rem 1rem 1rem 1rem;
+  `;
+const ProjectDescription = styled.div`
+  font-size: 1.2rem;
+  margin: 1rem 1rem 1rem 1rem;
+  `;
+
 
 const EditorContainer: React.FC<EditorContainerProps> = ({
   isLoading,
@@ -210,9 +220,14 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
             <EditorRoot>
               <EditorTitle type={active.type} />
               <ReadmeContainer>
-                <Text>{title}</Text>
-                <Text>{description}</Text>
-                <Text>{readme}</Text>
+                <Label>Title</Label>                
+                <ProjectHeading>{title}</ProjectHeading>
+                <Label>Description</Label>                
+                <ProjectDescription>{description}</ProjectDescription>
+                <Label>README.md</Label>                
+                <Markdown 
+                  content={readme}>
+                </Markdown>
               </ReadmeContainer>
             </EditorRoot>
                 :
@@ -220,7 +235,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
               <EditorTitle type={active.type} />
               <ReadmeContainer>
                 <InputBlock mb={'12px'}>
-                    <Label>Project Title</Label>
+                    <Label>Title</Label>
                     <Input
                         value={title}
                         onChange={event => {
@@ -230,7 +245,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                     />
                 </InputBlock>
                 <InputBlock mb={'12px'}>
-                    <Label>Project Description</Label>
+                    <Label>Description</Label>
                     <Input
                         value={description}
                         onChange={event => {
@@ -239,6 +254,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                         }}
                     />
                 </InputBlock>
+                <Label>README.md</Label>
                 <MdeEditor
                   value={readme}
                   onChange={(readme: string) => {
@@ -280,7 +296,7 @@ const EditorTitle: React.FC<EditorTitleProps> = ({ type }) => {
       {type === EntityType.Account && "Contract"}
       {type === EntityType.TransactionTemplate && "Transaction Template"}
       {type === EntityType.ScriptTemplate && "Script Template"}
-      {type === EntityType.Readme && "Readme"}
+      {type === EntityType.Readme && "Project Details"}
 
       {type !== EntityType.Readme && <Version/>}
     </Heading>
