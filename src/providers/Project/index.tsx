@@ -335,7 +335,7 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
 
   if (type == '' || type === undefined || !scriptTypes.includes(type)) {
     return (
-      <Redirect
+      <Redirect noThrow
         to={`/${project.id}?type=account&id=${project.accounts[0].id}`}
       />
     );
@@ -368,7 +368,7 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
         firstItemId = project.accounts[0].id;
         break;
     }
-    return <Redirect to={`/${project.id}?type=${type}&id=${firstItemId}`} />;
+    return <Redirect noThrow to={`/${project.id}?type=${type}&id=${firstItemId}`} />;
   }
 
   const activeType = type || 'account';
@@ -395,7 +395,7 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
           index: templateIndex,
         });
         const templateId = project.transactionTemplates[templateIndex].id;
-        return <Redirect to={`/${project.id}?type=tx&id=${templateId}`} />;
+        return <Redirect noThrow to={`/${project.id}?type=tx&id=${templateId}`} />;
       }
       break;
     }
@@ -418,7 +418,7 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
           index: templateIndex,
         });
         const templateId = project.scriptTemplates[templateIndex].id;
-        return <Redirect to={`/${project.id}?type=script&id=${templateId}`} />;
+        return <Redirect noThrow to={`/${project.id}?type=script&id=${templateId}`} />;
       }
       break;
     }
@@ -442,7 +442,7 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
           index: templateIndex,
         });
         const templateId = project.accounts[templateIndex].id;
-        return <Redirect to={`/${project.id}?type=account&id=${templateId}`} />;
+        return <Redirect noThrow to={`/${project.id}?type=account&id=${templateId}`} />;
       }
       break;
     }
@@ -466,7 +466,7 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
           type: EntityType.Readme,
           index: templateIndex,
         });
-        return <Redirect to={`/${project.id}?type=readme`} />;
+        return <Redirect noThrow to={`/${project.id}?type=readme`} />;
       }
       break;
     }
