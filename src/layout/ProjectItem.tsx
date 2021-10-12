@@ -13,7 +13,7 @@ export const ProjectItem = styled.div<ItemProps>`
 
   padding: 1rem;
   font-size: 1.0rem;
-  font-weight: bold;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: ${theme.colors.heading};
