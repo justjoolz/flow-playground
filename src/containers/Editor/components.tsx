@@ -153,13 +153,8 @@ function getActiveId(project: Project, active: ActiveEditor): string {
   }
 }
 const ReadmeHeader = styled.div`
-  // padding-top: 1rem;
-  // padding-left: 1rem;
-  // padding-right: 1rem;
-  // padding-bottom: 1rem;
   padding: 1rem 1rem 1rem 1rem;
   border-bottom: 1px solid grey;
-
   display: flex;
   `;
 
@@ -191,7 +186,6 @@ const ProjectDescription = styled.div`
 
 const ReadmeHtmlContainer = styled.div`
   padding: 1rem 1rem 1rem 1rem;
-  // background: red;
   `;
 
 
