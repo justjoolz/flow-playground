@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Button, Box } from "theme-ui";
+import { Flex, Button, Box, Divider, Text } from "theme-ui";
 import styled from "@emotion/styled";
-import { FaShareSquare } from "react-icons/fa";
+import { FaShareSquare, FaListUl } from "react-icons/fa";
 import { motion } from "framer-motion";
 import useClipboard from "react-use-clipboard";
 
@@ -152,17 +152,46 @@ function getActiveId(project: Project, active: ActiveEditor): string {
       return "";
   }
 }
+const ReadmeHeader = styled.div`
+  // padding-top: 1rem;
+  // padding-left: 1rem;
+  // padding-right: 1rem;
+  // padding-bottom: 1rem;
+  padding: 1rem 1rem 1rem 1rem;
+  border-bottom: 1px solid grey;
+
+  display: flex;
+  `;
 
 const ReadmeContainer = styled.div`
     margin: 0.2rem 1rem 0rem 1rem;
+    min-width: 500px;
+    max-width: 75%;
+    border: 1px solid grey;
+    border-radius: 6px;
+    margin-top: 1rem;
   `;
+
 const ProjectHeading = styled.div`
   font-size: 2rem;
-  margin: 1rem 1rem 1rem 1rem;
+  font-weight: 700;
+  margin-top: 0.25rem;
+  padding: 1rem 1rem 1rem 1rem;
   `;
+
 const ProjectDescription = styled.div`
   font-size: 1.2rem;
+  margin-top: 0.25rem;
   margin: 1rem 1rem 1rem 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  border-radius: 2px;
+  font-style: italic;
+  background: rgba(76, 175, 80, 0.3);
+  `;
+
+const ReadmeHtmlContainer = styled.div`
+  padding: 1rem 1rem 1rem 1rem;
+  // background: red;
   `;
 
 
@@ -218,14 +247,18 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
             <EditorRoot>
               <EditorTitle type={active.type} />
               <ReadmeContainer>
-                <Label>Title</Label>                
+                <ReadmeHeader>
+                  <FaListUl /> 
+                  <Text sx={{ paddingLeft: "0.5rem", fontWeight: "600"}}>README.md</Text>
+                </ReadmeHeader>
                 <ProjectHeading>{title}</ProjectHeading>
-                <Label>Description</Label>                
+                <Divider sx={{ marginX: "1.5rem", marginY: "0.1rem"}} />
                 <ProjectDescription>{description}</ProjectDescription>
-                <Label>README.md</Label>                
-                <Markdown 
-                  content={readme}>
-                </Markdown>
+                <ReadmeHtmlContainer>
+                  <Markdown 
+                    content={readme}>
+                  </Markdown>
+                </ReadmeHtmlContainer>
               </ReadmeContainer>
             </EditorRoot>
                 :
