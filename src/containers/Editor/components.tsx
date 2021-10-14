@@ -78,7 +78,9 @@ const ShareButton: React.FC<{ url: string }> = ({ url }) => {
       <FlowButton
         onClick={() => {
           setCopied();
-          Mixpanel.track("Share link copied", { url });
+          navigator.clipboard.writeText(url).then(function() {
+            Mixpanel.track("Share link copied", { url });
+          });
         }}
         Icon={FaShareSquare}
       >
