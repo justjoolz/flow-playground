@@ -1,5 +1,3 @@
-import { navigate } from '@reach/router';
-
 import ApolloClient from 'apollo-client';
 
 import {
@@ -126,7 +124,7 @@ export default class ProjectMutator {
       Mixpanel.track('Project saved', { projectId: this.projectId });
     }
 
-    navigate(`/${this.projectId}?type=readme&id=0`, { replace: true });
+    window.history.pushState( null, '', '/' + this.projectId + "?type=readme&id=0");
   }
 
   async updateAccountDraftCode(account: Account, code: string) {
