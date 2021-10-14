@@ -156,7 +156,7 @@ function getActiveId(project: Project, active: ActiveEditor): string {
 const ProjectInfoContainer = styled.div`
     margin: 0.2rem 1rem 0rem 1rem;
     min-width: 500px;
-    max-width: 75%;
+    max-width: 65%;
     margin-top: 1rem;
   `;
 
@@ -179,7 +179,11 @@ const ProjectDescription = styled.div`
   `;
 
 const ReadmeHtmlContainer = styled.div`
-  padding: 1rem 1rem 1rem 1rem;
+  // padding: 1rem 1rem 1rem 1rem;
+  margin-top: 0.0rem;
+  margin-left: 1.0rem;
+  margin-right: 1.0rem;
+  margin-bottom: 1.0rem;
   `;
 
 
@@ -238,6 +242,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                 <ProjectHeading>{title}</ProjectHeading>
                 <Divider sx={{ marginX: "1.0rem", marginY: "0.25rem", opacity: "0.3"}} />
                 <ProjectDescription>{description}</ProjectDescription>
+                <Divider sx={{ marginLeft: "1.0rem", marginY: "2.25rem", opacity: "0.3", width: "350px"}} />
                 <ReadmeHtmlContainer>
                   <Markdown 
                     content={readme}>
