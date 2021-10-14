@@ -242,7 +242,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                 <ProjectHeading>{title}</ProjectHeading>
                 <Divider sx={{ marginX: "1.0rem", marginY: "0.25rem", opacity: "0.3"}} />
                 <ProjectDescription>{description}</ProjectDescription>
-                <Divider sx={{ marginLeft: "1.0rem", marginY: "2.25rem", opacity: "0.3", width: "350px"}} />
+                <Divider sx={{ marginLeft: "1.0rem", marginY: "2.25rem", opacity: "0.3"}} />
                 <ReadmeHtmlContainer>
                   <Markdown 
                     content={readme}>
