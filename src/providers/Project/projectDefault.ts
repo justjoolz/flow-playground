@@ -141,14 +141,14 @@ export function createDefaultProject(): Project {
     strToSeed(uuid()),
     "Default project title ~ Hello World!",
     "Default project description ~ This project demonstrates...",
-`
-# My Project README!
+`# My Project README!
 
 [![](https://avatars.githubusercontent.com/u/1680273?s=80&v=4)](https://avatars.githubusercontent.com/u/1680273?v=4)
 
 **This** is an *example* ~~text~~.
 
 Unordered list example:
+
 * hi
 * hello
 * howdy

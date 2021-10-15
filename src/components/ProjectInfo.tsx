@@ -7,7 +7,7 @@ import {useProject} from "providers/Project/projectHooks";
 import { isUUUID} from "../util/url";
 import { EntityType } from "providers/Project";
 import { HiOutlineDocumentReport } from "react-icons/hi";
-import { Text } from "@theme-ui/components";
+import { Text, Box } from "@theme-ui/components";
 
 const ProjectInfo: React.FC = () => {
   const {
@@ -26,7 +26,14 @@ const ProjectInfo: React.FC = () => {
             navigate(`/${projectPath}?type=readme&id=LOCAL-account-0`)
           }}
         >
-            <HiOutlineDocumentReport fontSize="1.5rem"/> <Text sx={{ marginLeft: "0.25rem"}}>Project</Text>
+          <Box
+            sx={{
+              marginLeft: "0.25rem"
+            }}
+          >
+            <HiOutlineDocumentReport fontSize="1.5rem"/> 
+          </Box>
+            <Text sx={{ marginLeft: "1.15rem"}}>Project</Text>
         </Item>
       </Items>
     </Root>
