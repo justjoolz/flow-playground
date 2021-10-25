@@ -216,7 +216,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
   }, [isLoading, active, project]);
 
   const onEditorChange = debounce(active.onChange);
-  const updateProject = () => { 
+  const updateProject = (title: string, description: string, readme: string) => { 
     project.title = title; project.description = description; project.readme = readme; 
     onEditorChange(title, description, readme); 
   }
@@ -259,7 +259,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                         value={title}
                         onChange={event => {
                           setTitle(event.target.value)
-                          updateProject()
+                          updateProject(event.target.value, description, readme)
                         }}
                     />
                 </InputBlock>
@@ -269,7 +269,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                         value={description}
                         onChange={event => {
                           setDescription(event.target.value)
-                          updateProject()
+                          updateProject(title, event.target.value, readme)
                         }}
                     />
                 </InputBlock>
@@ -278,7 +278,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
                   value={readme}
                   onChange={(readme: string) => {
                     setReadme(readme)
-                    updateProject()
+                    updateProject(title, description, readme)
                   }}
                 />
               </ProjectInfoContainer>
