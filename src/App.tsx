@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import { Helmet } from 'react-helmet';
 import { Global } from '@emotion/core';
 import { ThemeProvider, Text } from 'theme-ui';
 import { Router, Redirect, globalHistory } from '@reach/router';
