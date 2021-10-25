@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Flex, Text } from "theme-ui";
 import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from 'react-helmet';
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaCodeBranch, FaDiscord, FaTwitter, FaArrowAltCircleDown } from "react-icons/fa";
 
@@ -56,6 +57,10 @@ const EditorLayout: React.FC = () => {
 
   return (
     <>
+      <Helmet>‍
+        <title>Flow - {project.title} </title>‍
+        <meta name="description" content={project.description}></meta>
+      </Helmet>
       <HeaderRoot>
         <Header>
           <Flex
