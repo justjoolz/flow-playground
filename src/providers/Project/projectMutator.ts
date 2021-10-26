@@ -48,14 +48,13 @@ export default class ProjectMutator {
     this.isLocal = isLocal;
     this.title = title;
     this.description = description;
-    this.readme = readme
+    this.readme = readme;
   }
 
   async createProject(): Promise<Project> {
     const { project: localProject } = this.client.readQuery({
       query: GET_LOCAL_PROJECT,
     });
-
 
     const parentId = localProject.parentId;
     const accounts = localProject.accounts.map((acc: Account) => acc.draftCode);

@@ -55,13 +55,13 @@ const EditorLayout: React.FC = () => {
     return <></>;
   }
 
-  const [helmetTitle, setHelmetTitle] = useState(project.title)
-  const [helmetDescription, setHelmetDescription] = useState(project.title)
+  const [helmetTitle, setHelmetTitle] = useState(project.title);
+  const [helmetDescription, setHelmetDescription] = useState(project.title);
 
   useEffect(() => {
     if (project.title) {
-      const titleDebounce = setTimeout(() => {setHelmetTitle(project.title)}, 3000)
-      const descriptionDebounce = setTimeout(() => {setHelmetDescription(project.description)}, 3000)
+      const titleDebounce = setTimeout(() => {setHelmetTitle(project.title)}, 3000);
+      const descriptionDebounce = setTimeout(() => {setHelmetDescription(project.description)}, 3000);
       
       return () => {
         clearTimeout(titleDebounce);

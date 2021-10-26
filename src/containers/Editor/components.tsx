@@ -193,8 +193,8 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
 }) => {
 
   const [title, setTitle] = useState<string | undefined>(project.title);
-  const [description, setDescription] = useState<string | undefined>(project.description)
-  const [readme, setReadme] = useState<string | undefined>(project.readme)
+  const [description, setDescription] = useState<string | undefined>(project.description);
+  const [readme, setReadme] = useState<string | undefined>(project.readme);
     
     
   const [code, setCode] = useState("");
@@ -228,8 +228,8 @@ const EditorContainer: React.FC<EditorContainerProps> = ({
       return project.accounts[index].draftCode
     }
   
-  const isReadmeEditor = active.type === 4
-  const isCodeEditor = !isReadmeEditor
+  const isReadmeEditor = active.type === 4;
+  const isCodeEditor = !isReadmeEditor;
 
   return (
     <MainRoot>

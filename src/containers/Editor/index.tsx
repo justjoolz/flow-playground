@@ -8,7 +8,7 @@ import { isUUUID, getParams, scriptTypes } from "../../util/url";
 
 const Playground: any = (props: any) => {
     
-  const params = getParams(props.location.search)
+  const params = getParams(props.location.search);
   
   const { projectId } = props;
   
@@ -17,7 +17,7 @@ const Playground: any = (props: any) => {
   
   const correctUUID = isUUUID(projectId);
   
-  const wrongProjectUUID = !correctUUID && !isLocalProject
+  const wrongProjectUUID = !correctUUID && !isLocalProject;
   
   const correctProject = !isLocalProject && correctUUID;
 

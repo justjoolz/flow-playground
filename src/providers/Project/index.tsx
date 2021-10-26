@@ -313,8 +313,8 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
           onChange: ((title: string, description: string, readme:string) => {
               if (project.persist) updateProject(title, description, readme)
           })
-        }
-    }
+        };
+    };
   };
 
   const activeEditor = getActiveEditor();
@@ -455,8 +455,8 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
         );
         if (foundIndex > 0) {
           templateIndex = foundIndex;
-        }
-      }
+        };
+      };
       const sameType = active.type == EntityType.Readme;
       const sameIndex = active.index == templateIndex;
 
@@ -467,13 +467,9 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
           index: templateIndex,
         });
         return <Redirect noThrow to={`/${project.id}?type=readme`} />;
-      }
+      };
       break;
-    }
-
-
-
-
+    };
     default:
       return null;
   }

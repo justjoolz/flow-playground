@@ -46,7 +46,6 @@ const App: React.FC = () => {
 
   return (
     <>
-      {/* {headers} */}
       <BrowserDetector />
       <Global styles={globalStyles} />
       <ApolloProvider client={client}>
